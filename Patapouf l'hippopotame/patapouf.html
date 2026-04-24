@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Univers de Patapouf le Rocker</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuration Tailwind personnalisée -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            rock: ['"Bangers"', 'cursive'],
+            nunito: ['"Nunito"', 'sans-serif'],
+          },
+          colors: {
+            swamp: {
+              900: '#064e3b',
+              800: '#065f46',
+              700: '#047857',
+              600: '#059669',
+              500: '#10b981',
+              400: '#34d399',
+              300: '#6ee7b7',
+              100: '#d1fae5',
+            },
+            rocker: {
+              purple: '#a855f7',
+              pink: '#ec4899',
+              black: '#111827',
+              grey: '#374151',
+            },
+            mud: {
+              light: '#8b5e3c',
+              DEFAULT: '#78350f',
+              dark: '#451a03',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'bubble-slow': 'bubble 10s linear infinite',
+            'bubble-fast': 'bubble 7s linear infinite',
+            'shake-rock': 'shake 0.5s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            bubble: {
+              '0%': { transform: 'translateY(100vh) scale(0.5)', opacity: 0 },
+              '20%': { opacity: 0.6 },
+              '80%': { opacity: 0.6 },
+              '100%': { transform: 'translateY(-20vh) scale(1.2)', opacity: 0 },
+            },
+            shake: {
+              '0%, 100%': { transform: 'rotate(0deg)' },
+              '25%': { transform: 'rotate(-1deg)' },
+              '75%': { transform: 'rotate(1deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Styles personnalisés -->
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .perspective-container {
+      perspective: 1000px;
+    }
+
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+
+    .tilt-card {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .perspective-container:hover .tilt-card {
+      transform: rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    }
+
+    .translate-z-30 {
+      transform: translateZ(30px);
+    }
+
+    .translate-z-40 {
+      transform: translateZ(40px);
+    }
+
+    .translate-z-50 {
+      transform: translateZ(50px);
+    }
+
+    .glow-rock {
+      box-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+    }
+
+    .mud-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .mud-svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .rock-pattern {
+      background: repeating-linear-gradient(45deg, #111827 25%, transparent 25%, transparent 75%, #a855f7 75%, #a855f7);
+      background-size: 20px 20px;
+      border: 4px solid white;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-gradient-to-b from-swamp-900 via-swamp-800 to-mud-dark min-h-screen relative overflow-x-hidden text-white">
+
+  <!-- Arrière-plan animé : Bulles et Swamp -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <!-- Spot de concert -->
+    <div class="absolute top-[-50px] left-[-50px] w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] animate-pulse"></div>
+    <div class="absolute top-[-50px] right-[-50px] w-96 h-96 bg-pink-600/20 rounded-full blur-[100px] animate-pulse" style="animation-delay: 1s;"></div>
+
+    <!-- Bulles de marécage -->
+    <div class="absolute left-[10%] opacity-40 animate-bubble-slow" style="animation-delay: 0s;">🫧</div>
+    <div class="absolute left-[30%] opacity-30 animate-bubble-fast" style="animation-delay: 2s;">🫧</div>
+    <div class="absolute left-[60%] opacity-50 animate-bubble-slow" style="animation-delay: 4s;">🫧</div>
+    <div class="absolute left-[85%] opacity-20 animate-bubble-fast" style="animation-delay: 1s;">🫧</div>
+  </div>
+
+  <!-- Boue animée au fond -->
+  <div class="mud-container">
+    <svg class="mud-svg opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+        <path fill="#451a03" d="M0,160L48,176C96,192,192,224,288,229.3C384,235,480,213,576,192C672,171,768,149,864,165.3C960,181,1056,235,1152,240C1248,245,1344,203,1392,181.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+  </div>
+
+  <article class="relative z-10 max-w-5xl mx-auto px-4 py-16">
+
+    <!-- En-tête -->
+    <header class="mb-20 text-center relative group">
+      <div
+        class="absolute inset-0 top-10 bg-rocker-purple blur-[120px] opacity-30 rounded-full scale-150 transition-opacity duration-700 group-hover:opacity-50">
+      </div>
+
+      <div class="relative inline-block">
+        <img src="images/patapouf-couleur.png" alt="Patapouf le Rocker"
+          class="relative mx-auto rounded-full w-64 h-64 object-cover shadow-[0_0_50px_rgba(168,85,247,0.6)] mb-8 transform transition-transform duration-700 group-hover:scale-105 group-hover:rotate-3 border-[8px] border-white bg-white">
+        <!-- Décor de rock -->
+        <div class="absolute -bottom-4 -right-4 text-6xl animate-bounce"
+          style="animation-duration: 2s; transform: rotate(15deg);">🎸</div>
+        <div class="absolute -top-4 -left-4 text-6xl animate-pulse"
+          style="transform: rotate(-15deg);">🕶️</div>
+      </div>
+
+      <h1
+        class="font-rock text-7xl md:text-9xl tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-white via-rocker-purple to-rocker-pink drop-shadow-[0_4px_4px_rgba(0,0,0,0.5)] mb-2">
+        Patapouf
+      </h1>
+      <h2 class="font-rock text-4xl md:text-6xl text-swamp-300 drop-shadow-[0_2px_2px_rgba(0,0,0,0.5)] mb-8">Le Rocker de la Mare</h2>
+
+      <p
+        class="text-xl md:text-2xl text-white font-bold bg-rocker-black/60 inline-block px-8 py-4 rounded-full backdrop-blur-md border border-rocker-purple shadow-lg">
+        Faites du bruit ! 🤘 Patapouf arrive pour mettre le feu au marécage !
+      </p>
+    </header>
+
+    <!-- Section Audio : Lecteur personnalisé Rock -->
+    <section class="mb-24 relative max-w-2xl mx-auto perspective-container">
+      <div
+        class="tilt-card preserve-3d p-10 bg-rocker-grey rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center border-[8px] border-rocker-purple glow-rock relative overflow-hidden">
+
+        <!-- Ruban style Rock en haut -->
+        <div class="absolute top-0 left-0 w-full h-4 rock-pattern"></div>
+
+        <div
+          class="bg-gradient-to-br from-rocker-purple to-rocker-pink text-white rounded-full p-5 mb-2 shadow-xl transform -translate-y-12 absolute translate-z-50 border-4 border-white z-20">
+          <span class="text-5xl">🤘</span>
+        </div>
+
+        <h2
+          class="font-rock text-5xl mb-10 text-white mt-12 tracking-wide drop-shadow-sm translate-z-30 text-center">
+          La Chanson de Patapouf</h2>
+
+        <!-- LECTEUR AUDIO -->
+        <div
+          class="w-full bg-rocker-black p-6 rounded-3xl shadow-[inset_0_0_15px_rgba(0,0,0,0.5)] border-2 border-rocker-purple/50 translate-z-40 relative">
+
+          <audio id="patapouf-audio" src="audio/patapouf.mp3" preload="metadata"></audio>
+
+          <div class="relative z-10 flex flex-col items-center w-full">
+
+            <div class="flex items-center w-full justify-between mb-2 px-2 text-swamp-300 font-bold text-sm">
+              <span id="time-current">0:00</span>
+              <span id="time-total">0:00</span>
+            </div>
+
+            <!-- Barre de progression (Courbe SVG) -->
+            <div class="flex items-center w-full mb-6">
+
+              <button id="play-btn"
+                class="w-16 h-16 mr-4 md:mr-6 flex items-center justify-center bg-gradient-to-br from-rocker-purple to-rocker-pink text-white rounded-full shadow-[0_5px_15px_rgba(168,85,247,0.4)] hover:scale-110 transition-transform active:scale-95 text-3xl pb-1 relative z-20 flex-shrink-0">
+                ▶️
+              </button>
+
+              <div class="relative flex-grow h-24 group cursor-pointer" id="progress-container">
+                <svg id="audio-curve-svg" class="w-full h-full overflow-visible" preserveAspectRatio="none"
+                  viewBox="0 0 1000 100">
+                  <path id="curve-bg" d="M 40 50 Q 250 150, 500 50 T 960 50" fill="none"
+                    stroke="#374151" stroke-width="8" stroke-linecap="round" stroke-dasharray="15 15" />
+                  <path id="curve-fill" d="M 40 50 Q 250 150, 500 50 T 960 50" fill="none"
+                    stroke="#a855f7" stroke-width="8" stroke-linecap="round" />
+                  <text x="960" y="55" font-size="40" text-anchor="middle" dominant-baseline="middle">🎸</text>
+                </svg>
+                <!-- HTML Div pour Patapouf -->
+                <div id="progress-thumb-div" class="absolute pointer-events-none drop-shadow-md"
+                  style="top: 50%; left: 4%; transform: translate(-50%, -50%); font-size: 40px; z-index: 10;">
+                  🦛
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Paroles (Karaoké Synchronisé) -->
+        <button onclick="document.getElementById('lyrics-container').classList.toggle('hidden')"
+          class="mt-6 text-swamp-300 underline font-bold text-lg hover:text-white transition-colors">
+          🎤 Afficher le Karaoké Rock !
+        </button>
+        <div
+          class="w-full mt-4 bg-rocker-black/80 p-6 rounded-3xl h-64 overflow-y-auto border-2 border-rocker-purple/30 text-center text-gray-500 font-bold hidden shadow-inner scroll-smooth relative"
+          id="lyrics-container">
+          <div id="lyrics-content" class="flex flex-col gap-6 py-24 transition-all duration-300">
+            <!-- Les paroles seront injectées ici par JavaScript -->
+          </div>
+        </div>
+
+        <a href="audio/patapouf.mp3" download="chanson-patapouf.mp3"
+          class="mt-10 group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white text-xl transition-all duration-300 bg-gradient-to-b from-rocker-purple to-rocker-pink rounded-full hover:scale-105 shadow-[0_10px_20px_rgba(168,85,247,0.4)] overflow-hidden translate-z-50 border-4 border-white">
+          <span class="relative z-10 flex items-center">
+            <span class="text-3xl mr-3">📥</span> Télécharger le MP3
+          </span>
+          <div
+            class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/30 to-transparent group-hover:animate-[shimmer_1.5s_infinite]">
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Grille d'activités -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 relative z-10">
+
+      <!-- Carte Coloriage -->
+      <div class="perspective-container">
+        <div
+          class="tilt-card preserve-3d relative p-10 bg-white rounded-[2.5rem] shadow-xl border-[6px] border-swamp-200 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-swamp-400 to-swamp-600"></div>
+          <h3 class="font-rock text-4xl mb-6 text-swamp-800 tracking-wide translate-z-30">Coloriages Rock</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 translate-z-50 w-full px-4">
+            <a href="images/patapouf-coloriage-1.png" download="patapouf-coloriage-1.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/patapouf-coloriage-1.png" alt="Coloriage 1"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-swamp-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-swamp-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm">
+                ⬇️ Enregistrer</div>
+            </a>
+            <a href="images/patapouf-coloriage-2.png" download="patapouf-coloriage-2.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/patapouf-coloriage-2.png" alt="Coloriage 2"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-swamp-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-swamp-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm">
+                ⬇️ Enregistrer</div>
+            </a>
+            <a href="images/patapouf-coloriage-3.png" download="patapouf-coloriage-3.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/patapouf-coloriage-3.png" alt="Coloriage 3"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-swamp-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-swamp-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm">
+                ⬇️ Enregistrer</div>
+            </a>
+          </div>
+          <div
+            class="mt-auto bg-gradient-to-r from-swamp-400 to-swamp-600 text-white font-bold text-xl px-8 py-3 rounded-full shadow-lg border-2 border-white translate-z-40">
+            🖍️ Prépare tes feutres !
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte DIY Mask -->
+      <div class="perspective-container">
+        <div
+          class="tilt-card preserve-3d relative p-10 bg-white rounded-[2.5rem] shadow-xl border-[6px] border-rocker-purple/30 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 rock-pattern"></div>
+          <h3 class="font-rock text-4xl mb-4 text-rocker-purple tracking-wide translate-z-30">Le Masque de Patapouf</h3>
+          <p class="text-gray-700 mb-8 flex-grow font-bold text-lg px-2 translate-z-30">
+            Deviens le roi de la mare ! Fabrique ton masque de Patapouf avec ses lunettes de soleil intégrées.
+          </p>
+          <a href="patapouf-diy-mask.html" target="_blank"
+            class="mt-auto inline-flex items-center px-8 py-4 bg-rocker-purple text-white font-bold text-lg rounded-full shadow-lg hover:bg-purple-600 hover:scale-105 transition-all translate-z-40 border-2 border-white">
+            <span class="text-2xl mr-2">✂️</span> Patron du Masque
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Le Livre Web Animé (Histoire du soir) -->
+    <section
+      class="relative z-10 max-w-5xl mx-auto bg-rocker-black/90 backdrop-blur rounded-[3rem] p-10 shadow-xl border-4 border-rocker-purple mt-24 mb-24">
+      <div class="flex items-center justify-center mb-8">
+        <span class="text-5xl mr-4">📖</span>
+        <h2 class="font-rock text-5xl text-white tracking-wide">L'Histoire de Patapouf</h2>
+      </div>
+
+      <!-- Slider Container -->
+      <div
+        class="relative w-full overflow-hidden rounded-3xl bg-swamp-900/50 border-4 border-swamp-700 aspect-video md:aspect-[21/9] flex items-center justify-center shadow-inner">
+
+        <!-- Slide 1 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-100"
+          id="slide-1">
+          <img src="images/patapouf-slide-1.png" alt="L'idée de génie"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-xl mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-white flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Patapouf ne dormait jamais l'après-midi comme les autres hippopotames. Pendant que ses cousins ronflaient dans l'eau tiède, lui, il s'entraînait à faire des rythmes avec ses pattes sur les troncs d'arbres. "Un jour, je ferai le plus grand concert de la jungle !" se disait-il en ajustant ses lunettes de soleil. Il décida alors d'inviter tous les animaux pour une fête incroyable au bord de la mare.
+          </p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-2">
+          <img src="images/patapouf-slide-2.png" alt="Les préparatifs"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-xl mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-white flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Pour sa scène, Patapouf utilisa un immense rocher plat au milieu de l'eau. Les singes l'aidèrent à accrocher des lianes lumineuses et des fleurs de lotus colorées. Patapouf, lui, s'occupait du son. Il avait trouvé une vieille guitare abandonnée par un explorateur et l'avait réparée avec des tiges de bambou. Il était prêt, son gilet de cuir brillait sous le soleil couchant.
+          </p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-3">
+          <img src="images/patapouf-slide-3.png" alt="Le grand show"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-xl mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-white flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Le soir venu, la mare était noire de monde. Les girafes tendaient le cou, les perroquets s'étaient perchés sur les branches et même les lions étaient là. Patapouf monta sur son rocher et lança un riff de guitare tonitruant. "Yo la jungle ! Vous êtes prêts ?" hurla-t-il. La musique était tellement forte et rythmée que même les nénuphars se mirent à danser sur les vagues !
+          </p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-4">
+          <img src="images/patapouf-slide-4.png" alt="Le final"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-xl mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-white flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Au moment du refrain final, Patapouf fit un saut incroyable et plongea dans la mare : "PLOUF !". Une vague géante arrosa tous les spectateurs, ce qui fit éclater de rire toute la jungle. C'était le meilleur concert de l'histoire ! Patapouf, tout mouillé mais heureux, promit de recommencer chaque semaine. Depuis ce jour, on l'appelle "Patapouf le Rocker".
+          </p>
+        </div>
+
+        <!-- Controls -->
+        <button onclick="changeSlide(-1)"
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-white/20 hover:bg-white/40 rounded-full shadow-lg text-3xl md:text-4xl text-white transition-all flex items-center justify-center pb-1">◀</button>
+        <button onclick="changeSlide(1)"
+          class="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-white/20 hover:bg-white/40 rounded-full shadow-lg text-3xl md:text-4xl text-white transition-all flex items-center justify-center pb-1">▶</button>
+
+        <!-- Audio de l'histoire -->
+        <audio id="story-audio" src="audio/patapouf_story.mp3"></audio>
+        <button id="story-play-btn" onclick="toggleStoryAudio()"
+          class="absolute bottom-4 right-4 bg-rocker-purple text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold shadow-lg hover:bg-rocker-pink hover:scale-105 transition-all text-sm md:text-base flex items-center gap-2">
+          <span class="text-xl" id="story-icon">🔊</span> Écouter l'histoire
+        </button>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex justify-center mt-8 gap-4" id="pagination">
+        <button onclick="goToSlide(1)" class="w-5 h-5 rounded-full bg-rocker-purple transition-colors shadow-sm" id="dot-1"></button>
+        <button onclick="goToSlide(2)" class="w-5 h-5 rounded-full bg-swamp-700 hover:bg-swamp-500 transition-colors shadow-sm" id="dot-2"></button>
+        <button onclick="goToSlide(3)" class="w-5 h-5 rounded-full bg-swamp-700 hover:bg-swamp-500 transition-colors shadow-sm" id="dot-3"></button>
+        <button onclick="goToSlide(4)" class="w-5 h-5 rounded-full bg-swamp-700 hover:bg-swamp-500 transition-colors shadow-sm" id="dot-4"></button>
+      </div>
+
+    </section>
+
+    <!-- Bulle de BD "Le Savais-tu ?" -->
+    <section class="max-w-3xl mx-auto relative pl-4 md:pl-24 animate-float-slow mb-32 z-10">
+      <div
+        class="absolute left-0 top-1/2 -translate-y-1/2 text-7xl hidden md:block drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] transform -rotate-12 z-20">
+        🌿
+      </div>
+
+      <div
+        class="relative bg-rocker-grey/90 backdrop-blur-md p-10 rounded-[3rem] shadow-xl border-[6px] border-rocker-purple text-white">
+        <div class="flex items-center justify-center md:justify-start mb-6 border-b-2 border-swamp-700 pb-4">
+          <span class="text-5xl mr-4 animate-pulse">💡</span>
+          <h2 class="font-rock text-5xl text-white tracking-wider drop-shadow-sm">Le Savais-tu ?</h2>
+        </div>
+
+        <p class="text-xl md:text-2xl leading-relaxed font-bold text-swamp-100 text-center md:text-left">
+          Les hippopotames fabriquent leur propre crème solaire ! 🧴
+          <br><br>
+          Leur peau sécrète un liquide rose qui les protège des brûlures du soleil et des microbes. C'est pour ça qu'ils ont parfois l'air tout roses quand ils sortent de l'eau.
+          <span class="block mt-6 text-rocker-pink text-3xl font-rock tracking-wide">Une vraie peau de rockstar ! 🤘</span>
+        </p>
+      </div>
+    </section>
+
+  </article>
+
+  <!-- Scripts -->
+  <script>
+    // --- V3 : Audio Courbé et Karaoké Synchronisé ---
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("patapouf-audio");
+      const playBtn = document.getElementById("play-btn");
+      const timeCurrent = document.getElementById("time-current");
+      const timeTotal = document.getElementById("time-total");
+
+      const curveBg = document.getElementById("curve-bg");
+      const curveFill = document.getElementById("curve-fill");
+      const thumbDiv = document.getElementById("progress-thumb-div");
+      const svgContainer = document.getElementById("audio-curve-svg");
+
+      const pathLength = curveBg.getTotalLength();
+      curveFill.style.strokeDasharray = pathLength;
+      curveFill.style.strokeDashoffset = pathLength;
+
+      const lyricsData = [
+        { time: 0, text: "Intro :", isTitle: true },
+        { time: 10, text: "Yo, faites place ! Le roi du marécage arrive..." },
+        { time: 15, text: "C'est Patapouf ! Micro en main, pieds dans la boue !" },
+        { time: 20, text: "Couplet 1 :", isTitle: true },
+        { time: 21, text: "J'ai les lunettes noires, j'ai le gilet de cuir" },
+        { time: 25, text: "Quand je sors de l'eau, tout le monde veut me suivre !" },
+        { time: 29, text: "Je pèse trois tonnes, mais je danse comme un chef" },
+        { time: 33, text: "Dans la jungle entière, je suis le seul vrai kief !" },
+        { time: 37, text: "Pas de dodo pour moi, je préfère le gros son" },
+        { time: 41, text: "Les poissons dans l'eau font tous des bons !" },
+        { time: 45, text: "Pré-refrain :", isTitle: true },
+        { time: 46, text: "Gonfle tes joues, tape des mains !" },
+        { time: 50, text: "Le concert commence, c'est pour demain ?" },
+        { time: 54, text: "Non, c'est MAINTENANT !" },
+        { time: 60, text: "Refrain :", isTitle: true },
+        { time: 61, text: "Patapouf ! Le rocker de la mare !" },
+        { time: 65, text: "Il fait \"PLOUF\", et tout le monde en a marre !" },
+        { time: 69, text: "Mais non, on rigole, il est trop génial" },
+        { time: 73, text: "Son solo de guitare est phénoménal !" },
+        { time: 77, text: "Patapouf, Patapouf, le roi du bitume..." },
+        { time: 81, text: "Enfin, surtout le roi de l'écume !" },
+        { time: 85, text: "Couplet 2 :", isTitle: true },
+        { time: 86, text: "Les crocodiles disent : \"Hé, Patapouf, c'est trop !\"" },
+        { time: 90, text: "Je leur réponds : \"Désolé, j'ai le tempo dans la peau !\"" },
+        { time: 94, text: "Je mange des nénuphars en guise de micro" },
+        { time: 98, text: "Et je fais des bulles qui montent tout en haut." },
+        { time: 102, text: "Ma mare, c'est ma scène, la boue c'est mon style" },
+        { time: 106, text: "Je suis l'hippopotame le plus agile de l'île !" },
+        { time: 110, text: "Pont :", isTitle: true },
+        { time: 125, text: "Ouais... Patapouf est dans la place. Rock 'n' Roll !" },
+        { time: 130, text: "Refrain Final :", isTitle: true },
+        { time: 131, text: "Patapouf ! Le rocker de la mare !" },
+        { time: 135, text: "Il fait \"PLOUF\", et tout le monde en a marre !" },
+        { time: 139, text: "Mais non, on rigole, il est trop génial" },
+        { time: 143, text: "Son solo de guitare est phénoménal !" },
+        { time: 150, text: "Outro :", isTitle: true },
+        { time: 151, text: "Patapouf s'en va, retour à la flotte." },
+        { time: 155, text: "(SPLASH !)" },
+        { time: 159, text: "Fin", isTitle: true }
+      ];
+
+      const lyricsContent = document.getElementById("lyrics-content");
+      let lyricsElements = [];
+
+      lyricsData.forEach((line, index) => {
+        const p = document.createElement("p");
+        p.innerHTML = line.text;
+        if (line.isTitle) {
+          p.className = "text-rocker-pink text-xl mt-4 transition-all duration-300";
+        } else {
+          p.className = "text-gray-500 text-lg transition-all duration-300";
+        }
+        lyricsContent.appendChild(p);
+        lyricsElements.push(p);
+      });
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      playBtn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = "⏸️";
+        } else {
+          audio.pause();
+          playBtn.innerHTML = "▶️";
+        }
+      });
+
+      let activeLyricIndex = -1;
+
+      audio.addEventListener("timeupdate", () => {
+        timeCurrent.textContent = formatTime(audio.currentTime);
+
+        if (audio.duration) {
+          const percent = audio.currentTime / audio.duration;
+          curveFill.style.strokeDashoffset = pathLength - (percent * pathLength);
+
+          const point = curveBg.getPointAtLength(percent * pathLength);
+          thumbDiv.style.left = (point.x / 1000 * 100) + "%";
+          thumbDiv.style.top = (point.y / 100 * 100) + "%";
+        }
+
+        let newActiveIndex = -1;
+        for (let i = 0; i < lyricsData.length; i++) {
+          if (audio.currentTime >= lyricsData[i].time) {
+            newActiveIndex = i;
+          } else {
+            break;
+          }
+        }
+
+        if (newActiveIndex !== activeLyricIndex && newActiveIndex !== -1) {
+          if (activeLyricIndex !== -1) {
+            lyricsElements[activeLyricIndex].classList.remove("text-white", "scale-110", "drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]");
+            if (!lyricsData[activeLyricIndex].isTitle) {
+              lyricsElements[activeLyricIndex].classList.add("text-gray-500");
+            }
+          }
+          activeLyricIndex = newActiveIndex;
+          lyricsElements[activeLyricIndex].classList.remove("text-gray-500");
+          lyricsElements[activeLyricIndex].classList.add("text-white", "scale-110", "drop-shadow-[0_0_10px_rgba(168,85,247,0.8)]");
+          lyricsElements[activeLyricIndex].scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      });
+
+      audio.addEventListener("ended", () => {
+        playBtn.innerHTML = "▶️";
+        curveFill.style.strokeDashoffset = pathLength;
+        thumbDiv.style.left = "4%";
+        thumbDiv.style.top = "50%";
+      });
+    });
+
+    // --- Slider JS (Livre Web Animé) ---
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function updateSlider() {
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById('slide-' + i);
+        const dot = document.getElementById('dot-' + i);
+        if (i === currentSlide) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+          dot.classList.replace('bg-swamp-700', 'bg-rocker-purple');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+          dot.classList.replace('bg-rocker-purple', 'bg-swamp-700');
+        }
+      }
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide > totalSlides) currentSlide = 1;
+      if (currentSlide < 1) currentSlide = totalSlides;
+      updateSlider();
+    }
+
+    function goToSlide(slideNum) {
+      currentSlide = slideNum;
+      updateSlider();
+    }
+
+    function toggleStoryAudio() {
+      const audio = document.getElementById("story-audio");
+      const icon = document.getElementById("story-icon");
+      if (audio.paused) {
+        audio.play();
+        icon.innerText = "⏸️";
+      } else {
+        audio.pause();
+        icon.innerText = "🔊";
+      }
+    }
+  </script>
+</body>
+
+</html>

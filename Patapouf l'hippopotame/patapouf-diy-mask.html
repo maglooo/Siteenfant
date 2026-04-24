@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Masque de Patapouf le Rocker - DIY</title>
+    <style>
+        @page { size: A4; margin: 0; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .no-print { 
+            background: #fdf2f8; padding: 20px; text-align: center; border-bottom: 2px solid #a855f7;
+        }
+        @media print { .no-print { display: none; } }
+        .page { width: 210mm; height: 297mm; position: relative; margin: auto; overflow: hidden; background: white; }
+        .instructions { position: absolute; font-size: 12px; color: #666; width: 150px; line-height: 1.4; }
+        .instr-1 { top: 20mm; left: 10mm; }
+        .instr-2 { top: 20mm; right: 10mm; text-align: right; }
+        .instr-3 { bottom: 20mm; left: 10mm; }
+        .mask-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        svg { width: 190mm; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1)); }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <h1>✂️ Ton Masque de Patapouf Rocker !</h1>
+        <p>Deviens une star du marécage avec ce masque hyper cool.</p>
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 18px; cursor: pointer; background: #a855f7; color: white; border: none; border-radius: 8px;">🖨️ Imprimer le patron</button>
+    </div>
+
+    <div class="page">
+        <div class="instructions instr-1">
+            <b>1. Découpe</b> le long des pointillés noirs.<br>
+            <b>2. Évide</b> soigneusement les verres des lunettes pour voir !
+        </div>
+        <div class="instructions instr-2">
+            <b>3. Perce</b> les deux petits ronds sur les côtés.<br>
+            <b>4. Attache</b> un élastique pour faire tenir le masque.
+        </div>
+        <div class="instructions instr-3">
+            <b>Astuce :</b> Imprime sur du papier un peu épais pour que ton masque de rocker soit bien solide !
+        </div>
+
+        <div class="mask-container">
+            <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Oreilles -->
+                <ellipse cx="120" cy="80" rx="30" ry="40" fill="#9333ea" stroke="#581c87" stroke-width="3" />
+                <ellipse cx="380" cy="80" rx="30" ry="40" fill="#9333ea" stroke="#581c87" stroke-width="3" />
+                <ellipse cx="120" cy="85" rx="15" ry="20" fill="#f472b6" />
+                <ellipse cx="380" cy="85" rx="15" ry="20" fill="#f472b6" />
+
+                <!-- Visage de Patapouf -->
+                <path d="M100,150 Q100,80 250,80 Q400,80 400,150 L400,250 Q400,380 250,380 Q100,380 100,250 Z" fill="#9333ea" stroke="#581c87" stroke-width="4" />
+                
+                <!-- Museau (Bas du visage) -->
+                <path d="M110,250 Q110,360 250,360 Q390,360 390,250 Z" fill="#c084fc" />
+
+                <!-- Narines -->
+                <circle cx="200" cy="300" r="15" fill="#581c87" />
+                <circle cx="300" cy="300" r="15" fill="#581c87" />
+
+                <!-- Les Lunettes Noires (Bad Boy) -->
+                <rect x="130" y="140" width="240" height="80" rx="10" fill="#111827" stroke="white" stroke-width="2" />
+                <path d="M130,180 L370,180" stroke="white" stroke-width="1" opacity="0.3" />
+                
+                <!-- Verres à évider -->
+                <circle cx="180" cy="180" r="25" fill="white" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
+                <circle cx="320" cy="180" r="25" fill="white" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
+                
+                <!-- Sourire de Rocker -->
+                <path d="M220,330 Q250,345 280,330" fill="none" stroke="#581c87" stroke-width="4" stroke-linecap="round" />
+                
+                <!-- Attaches élastiques -->
+                <circle cx="95" cy="220" r="5" fill="none" stroke="#333" stroke-width="1" />
+                <circle cx="405" cy="220" r="5" fill="none" stroke="#333" stroke-width="1" />
+                
+                <!-- Pointillés de découpe (contour global) -->
+                <path d="M100,150 Q100,80 250,80 Q400,80 400,150 L400,250 Q400,380 250,380 Q100,380 100,250 Z" 
+                      fill="none" stroke="#000" stroke-width="1" stroke-dasharray="8,8" opacity="0.3" transform="scale(1.05) translate(-12, -8)" />
+            </svg>
+        </div>
+    </div>
+</body>
+</html>
