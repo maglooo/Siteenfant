@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Univers d'Hector le T-Rex Pirate</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configuration Tailwind personnalisée -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pirata: ['"Pirata One"', 'system-ui', 'cursive'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
+          },
+          colors: {
+            ocean: {
+              900: '#020c1b',
+              800: '#0a192f',
+              700: '#112240',
+              600: '#233554',
+              500: '#17406a',
+              100: '#e6f1ff',
+            },
+            treasure: {
+              light: '#fde047',
+              DEFAULT: '#eab308',
+              dark: '#a16207',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-fast': 'float 4s ease-in-out infinite',
+            'bubble-up': 'bubbleUp 10s linear infinite',
+            'wave-slow': 'wave 15s linear infinite',
+            'wave-fast': 'wave 10s linear infinite',
+            'wave-medium': 'wave 12s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            bubbleUp: {
+              '0%': { transform: 'translateY(100vh) scale(0.5)', opacity: 0 },
+              '20%': { opacity: 0.6 },
+              '100%': { transform: 'translateY(-100px) scale(1.5)', opacity: 0 },
+            },
+            wave: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Styles personnalisés (3D & Formes) -->
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+    }
+    
+    /* Effet 3D sur les cartes */
+    .perspective-container {
+      perspective: 1000px;
+    }
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+    .tilt-card {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .perspective-container:hover .tilt-card {
+      transform: rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    }
+    .translate-z-30 { transform: translateZ(30px); }
+    .translate-z-40 { transform: translateZ(40px); }
+    .translate-z-50 { transform: translateZ(50px); }
+    
+    /* Queue de la bulle de BD (Desktop) */
+    .speech-bubble-tail {
+      position: absolute;
+      bottom: 30px;
+      left: -25px;
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-right: 25px solid rgba(255, 255, 255, 0.95);
+      filter: drop-shadow(-4px 0px 2px rgba(0,0,0,0.1));
+    }
+    
+    /* Ombre dorée éclatante */
+    .glow-gold {
+      box-shadow: 0 0 40px rgba(234, 179, 8, 0.3);
+    }
+    
+    @keyframes shimmer {
+      100% { transform: translateX(100%); }
+    }
+
+    /* Vagues SVG */
+    .waves-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .wave-svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+    }
+    
+    /* Cacher le lecteur audio par défaut */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-b from-ocean-800 via-ocean-700 to-ocean-600 min-h-screen relative overflow-x-hidden text-gray-100">
+
+  <!-- Arrière-plan animé : Bulles et Vagues "Sous l'Océan" -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <!-- Bulles -->
+    <div class="absolute left-[10%] bottom-[-5%] animate-bubble-up" style="animation-duration: 8s; animation-delay: 1s;">
+      <div class="w-8 h-8 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm"></div>
+    </div>
+    <div class="absolute left-[30%] bottom-[-5%] animate-bubble-up" style="animation-duration: 12s; animation-delay: 4s;">
+      <div class="w-16 h-16 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm"></div>
+    </div>
+    <div class="absolute left-[60%] bottom-[-5%] animate-bubble-up" style="animation-duration: 9s; animation-delay: 2s;">
+      <div class="w-10 h-10 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm"></div>
+    </div>
+    <div class="absolute left-[85%] bottom-[-5%] animate-bubble-up" style="animation-duration: 15s; animation-delay: 0s;">
+      <div class="w-20 h-20 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm"></div>
+    </div>
+    <div class="absolute left-[50%] bottom-[-5%] animate-bubble-up" style="animation-duration: 11s; animation-delay: 6s;">
+      <div class="w-6 h-6 rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-sm"></div>
+    </div>
+  </div>
+
+  <!-- Vagues au fond -->
+  <div class="waves-container">
+    <!-- Vague 1 (Arrière-plan lent) -->
+    <svg class="wave-svg animate-wave-slow opacity-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#17406a" fill-opacity="1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      <path fill="#17406a" fill-opacity="1" transform="translate(1440,0)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+    <!-- Vague 2 (Milieu moyen) -->
+    <svg class="wave-svg animate-wave-medium opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#233554" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,256C840,256,960,224,1080,213.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+      <path fill="#233554" fill-opacity="1" transform="translate(1440,0)" d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,256C840,256,960,224,1080,213.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
+    </svg>
+    <!-- Vague 3 (Premier plan rapide) -->
+    <svg class="wave-svg animate-wave-fast opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#0a192f" fill-opacity="1" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,197.3C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      <path fill="#0a192f" fill-opacity="1" transform="translate(1440,0)" d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,197.3C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+  </div>
+
+  <article class="relative z-10 max-w-5xl mx-auto px-4 py-16">
+    
+    <!-- En-tête -->
+    <header class="mb-20 text-center relative group animate-float-slow">
+      <!-- Halo de lumière derrière l'image -->
+      <div class="absolute inset-0 top-10 bg-treasure-DEFAULT blur-[120px] opacity-20 rounded-full scale-150 transition-opacity duration-700 group-hover:opacity-40"></div>
+      
+      <div class="relative inline-block">
+        <img src="hector-cover.png" alt="Hector le T-Rex Pirate" class="relative mx-auto rounded-full w-64 h-64 object-cover object-[20%_30%] shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-8 transform transition-transform duration-700 group-hover:scale-105 group-hover:rotate-6 border-[6px] border-treasure-DEFAULT border-opacity-80">
+        <!-- Petit décor marin -->
+        <div class="absolute -bottom-2 -right-2 text-5xl animate-bounce" style="animation-duration: 2s;">⚓</div>
+      </div>
+
+      <h1 class="font-pirata text-6xl md:text-8xl tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-treasure-light via-treasure-DEFAULT to-treasure-dark drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] mb-2">
+        L'Univers d'Hector
+      </h1>
+      <h2 class="font-pirata text-4xl md:text-5xl text-orange-400 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-8">Le T-Rex Pirate</h2>
+      
+      <p class="text-xl md:text-2xl text-ocean-100 font-bold bg-ocean-900/60 inline-block px-8 py-3 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+        Préparez-vous à l'abordage ! 🏴‍☠️🦖
+      </p>
+    </header>
+
+    <!-- Section Audio : Le Coffre aux Chansons avec Lecteur Personnalisé -->
+    <section class="mb-24 relative max-w-2xl mx-auto perspective-container">
+      <div class="tilt-card preserve-3d p-10 bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center border-[6px] border-treasure-dark/20 glow-gold relative overflow-hidden">
+        
+        <!-- Icône de coffre/musique flottante -->
+        <div class="bg-gradient-to-br from-treasure-dark to-treasure-DEFAULT text-white rounded-full p-4 mb-2 shadow-xl transform -translate-y-16 absolute translate-z-50 border-4 border-[#fdfbfb] z-20">
+          <span class="text-5xl">🎵</span>
+        </div>
+        
+        <h2 class="font-pirata text-5xl mb-12 text-ocean-900 mt-8 tracking-wide drop-shadow-sm translate-z-30 text-center">La Chanson d'Hector</h2>
+        
+        <!-- LECTEUR AUDIO "CARTE AU TRÉSOR" -->
+        <div class="w-full bg-[#fcf8e3] p-6 rounded-3xl shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] border-2 border-[#e6d09e] translate-z-40 relative">
+          <!-- Texture Parchemin légère -->
+          <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI0IiBoZWlnaHQ9IjQiIGZpbGw9IiNmZmYiLz48cmVjdCB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSIjMDAwIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz48L3N2Zz4=')] rounded-3xl"></div>
+          
+          <audio id="hector-audio" src="À_l_abordage_du_chocolat.mp3" preload="metadata"></audio>
+          
+          <div class="relative z-10 flex flex-col items-center w-full">
+            
+            <div class="flex items-center w-full justify-between mb-2 px-2 text-[#8c6d3b] font-bold text-sm">
+              <span id="time-current">0:00</span>
+              <span id="time-total">0:00</span>
+            </div>
+
+            <!-- Barre de progression "Carte au trésor" -->
+            <div class="flex items-center w-full mb-6">
+              
+              <!-- Bouton Play/Pause -->
+              <button id="play-btn" class="w-16 h-16 mr-6 flex items-center justify-center bg-gradient-to-br from-treasure-DEFAULT to-treasure-dark text-white rounded-full shadow-[0_5px_10px_rgba(161,98,7,0.4)] hover:scale-110 transition-transform active:scale-95 text-3xl pb-1">
+                ▶️
+              </button>
+
+              <!-- La Barre -->
+              <div class="relative flex-grow h-6 group cursor-pointer" id="progress-container">
+                <!-- Ligne en pointillés (Le chemin) -->
+                <div class="absolute top-1/2 left-0 w-full border-t-[3px] border-dashed border-[#c6aa73] -translate-y-1/2 rounded-full"></div>
+                
+                <!-- Remplissage (Chemin parcouru) -->
+                <div id="progress-fill" class="absolute top-1/2 left-0 w-0 border-t-[4px] border-solid border-red-500 -translate-y-1/2 rounded-full transition-all duration-100"></div>
+                
+                <!-- Curseur (Le Bateau) -->
+                <div id="progress-thumb" class="absolute top-1/2 left-0 -translate-y-1/2 -ml-4 w-8 h-8 flex items-center justify-center transition-all duration-100 drop-shadow-md text-2xl z-10">
+                  ⛵
+                </div>
+                
+                <!-- Destination (Le Trésor) -->
+                <div class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-3 text-3xl">
+                  ❌
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        
+        <a href="À_l_abordage_du_chocolat.mp3" download="chanson-hector.mp3" target="_blank"
+          class="mt-10 group relative inline-flex items-center justify-center px-10 py-5 font-bold text-ocean-900 text-xl transition-all duration-300 bg-gradient-to-b from-treasure-light to-treasure-DEFAULT rounded-full hover:to-treasure-light hover:scale-105 shadow-[0_10px_20px_rgba(234,179,8,0.4)] overflow-hidden translate-z-50 border-2 border-treasure-light">
+          <span class="relative z-10 flex items-center">
+            <span class="text-3xl mr-3">💰</span> Télécharger le Butin !
+          </span>
+          <!-- Effet de surbrillance animée (Shimmer) -->
+          <div class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:animate-[shimmer_1.5s_infinite]"></div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Grille d'activités avec Effet 3D -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 relative z-10">
+      
+      <!-- Carte Coloriage -->
+      <div class="perspective-container">
+        <div class="tilt-card preserve-3d relative p-10 bg-gradient-to-br from-white to-blue-50 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-[6px] border-blue-200/50 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-blue-400 to-cyan-300"></div>
+          <h3 class="font-pirata text-4xl mb-6 text-blue-900 tracking-wide translate-z-30">Imprime ton Coloriage</h3>
+          <div class="p-6 bg-white/90 backdrop-blur rounded-full mb-8 shadow-inner border border-blue-100 translate-z-50 transform group-hover:scale-110 transition-transform duration-500">
+            <img src="hector-coloring.png" alt="Miniature Coloriage Hector" class="w-32 drop-shadow-xl rounded-xl">
+          </div>
+          <a href="hector-coloring.png" download="coloriage-hector.png" target="_blank"
+            class="mt-auto inline-flex items-center px-8 py-4 bg-gradient-to-br from-blue-500 to-cyan-500 text-white font-bold text-lg rounded-full shadow-[0_10px_20px_rgba(59,130,246,0.3)] hover:shadow-[0_15px_30px_rgba(59,130,246,0.5)] hover:scale-105 transition-all translate-z-40 border-2 border-blue-400">
+            <span class="text-2xl mr-2">🖍️</span> Obtenir la Carte
+          </a>
+        </div>
+      </div>
+
+      <!-- Carte Tricorne -->
+      <div class="perspective-container">
+        <div class="tilt-card preserve-3d relative p-10 bg-gradient-to-br from-white to-purple-50 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-[6px] border-purple-200/50 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-purple-400 to-pink-400"></div>
+          <h3 class="font-pirata text-4xl mb-4 text-purple-900 tracking-wide translate-z-30">Fabrique ton Tricorne</h3>
+          <p class="text-gray-600 mb-8 flex-grow font-bold text-lg px-2 translate-z-30">
+            Deviens un pirate terrifiant comme Hector avec ce chapeau magique très facile à découper !
+          </p>
+          <a href="hector-diy-hat.html" target="_blank"
+            class="mt-auto inline-flex items-center px-8 py-4 bg-gradient-to-br from-purple-500 to-pink-500 text-white font-bold text-lg rounded-full shadow-[0_10px_20px_rgba(168,85,247,0.3)] hover:shadow-[0_15px_30px_rgba(168,85,247,0.5)] hover:scale-105 transition-all translate-z-40 border-2 border-purple-400">
+            <span class="text-2xl mr-2">✂️</span> Patron du Chapeau
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Bulle de BD "Le Savais-tu ?" -->
+    <section class="max-w-3xl mx-auto relative pl-4 md:pl-24 animate-float-fast mb-32 z-10">
+      <!-- Décoration visuelle (Petit Crâne) à gauche -->
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 text-7xl hidden md:block drop-shadow-[0_10px_10px_rgba(0,0,0,0.6)] transform -rotate-12 z-20">
+        🦖
+      </div>
+
+      <!-- Corps de la Bulle -->
+      <div class="relative bg-white/95 backdrop-blur-md p-10 rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-[6px] border-white text-gray-800">
+        <div class="speech-bubble-tail hidden md:block"></div>
+        <div class="absolute -top-[20px] left-1/2 -translate-x-1/2 w-0 h-0 border-b-[20px] border-b-white/95 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent md:hidden"></div>
+        
+        <div class="flex items-center justify-center md:justify-start mb-6 border-b-2 border-gray-200 pb-4">
+          <span class="text-5xl mr-4 animate-pulse">💡</span>
+          <h2 class="font-pirata text-5xl text-treasure-dark tracking-wider drop-shadow-sm">Le Savais-tu ?</h2>
+        </div>
+        
+        <p class="text-xl md:text-2xl leading-relaxed font-bold text-ocean-900 text-center md:text-left">
+          Savais-tu que les T-Rex n'auraient pas pu mettre de chapeaux de pirate tout seuls ? 
+          <br><br>
+          Leurs bras étaient tellement petits qu'ils ne pouvaient même pas toucher leur propre nez ! 
+          <span class="block mt-6 text-treasure-dark text-3xl font-pirata tracking-wide">Triste vie pour un pirate... 🏴‍☠️</span>
+        </p>
+      </div>
+    </section>
+
+  </article>
+
+  <!-- Script pour le lecteur audio "Carte au trésor" -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("hector-audio");
+      const playBtn = document.getElementById("play-btn");
+      const progressContainer = document.getElementById("progress-container");
+      const progressFill = document.getElementById("progress-fill");
+      const progressThumb = document.getElementById("progress-thumb");
+      const timeCurrent = document.getElementById("time-current");
+      const timeTotal = document.getElementById("time-total");
+
+      // Formater le temps en MM:SS
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      // Quand les métadonnées de l'audio sont chargées
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      // Bouton Play/Pause
+      playBtn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = "⏸️";
+        } else {
+          audio.pause();
+          playBtn.innerHTML = "▶️";
+        }
+      });
+
+      // Mettre à jour la barre de progression (Le bateau qui avance)
+      audio.addEventListener("timeupdate", () => {
+        timeCurrent.textContent = formatTime(audio.currentTime);
+        
+        if (audio.duration) {
+          const percent = (audio.currentTime / audio.duration) * 100;
+          progressFill.style.width = `${percent}%`;
+          progressThumb.style.left = `${percent}%`;
+        }
+      });
+
+      // Quand la chanson est finie
+      audio.addEventListener("ended", () => {
+        playBtn.innerHTML = "▶️";
+        progressFill.style.width = "0%";
+        progressThumb.style.left = "0%";
+      });
+
+      // Cliquer sur la ligne pour sauter à un moment précis
+      progressContainer.addEventListener("click", (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const percent = clickX / width;
+        audio.currentTime = percent * audio.duration;
+      });
+    });
+  </script>
+</body>
+</html>

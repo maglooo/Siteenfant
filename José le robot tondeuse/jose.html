@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Découvre l'univers de José le robot tondeuse et son ami Panache l'écureuil. Histoires animées, coloriages à imprimer et bricolages pour enfants !">
+  <title>L'Univers de José le Robot Tondeuse | Coloriages & Histoires</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuration Tailwind personnalisée -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['"Fredoka One"', 'system-ui', 'cursive'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
+          },
+          colors: {
+            garden: {
+              900: '#064e3b',
+              800: '#065f46',
+              700: '#047857',
+              600: '#059669',
+              500: '#10b981',
+              100: '#d1fae5',
+            },
+            metal: {
+              light: '#f3f4f6',
+              DEFAULT: '#9ca3af',
+              dark: '#4b5563',
+            },
+            squirrel: {
+              light: '#fdba74',
+              DEFAULT: '#f97316',
+              dark: '#c2410c',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-fast': 'float 4s ease-in-out infinite',
+            'firefly': 'firefly 8s linear infinite',
+            'wave-slow': 'wave 15s linear infinite',
+            'wave-fast': 'wave 10s linear infinite',
+            'wave-medium': 'wave 12s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            firefly: {
+              '0%': { transform: 'translate(0, 100vh) scale(0.5)', opacity: 0 },
+              '20%': { opacity: 0.8 },
+              '50%': { transform: 'translate(50px, 0) scale(1)' },
+              '80%': { opacity: 0.8 },
+              '100%': { transform: 'translate(-50px, -100px) scale(0.5)', opacity: 0 },
+            },
+            wave: {
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(-50%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Styles personnalisés (3D & Formes) -->
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    /* Effet 3D sur les cartes */
+    .perspective-container {
+      perspective: 1000px;
+    }
+
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+
+    .tilt-card {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .perspective-container:hover .tilt-card {
+      transform: rotateX(5deg) rotateY(-5deg) translateZ(20px);
+    }
+
+    .translate-z-30 {
+      transform: translateZ(30px);
+    }
+
+    .translate-z-40 {
+      transform: translateZ(40px);
+    }
+
+    .translate-z-50 {
+      transform: translateZ(50px);
+    }
+
+    /* Queue de la bulle de BD (Desktop) */
+    .speech-bubble-tail {
+      position: absolute;
+      bottom: 30px;
+      left: -25px;
+      width: 0;
+      height: 0;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-right: 25px solid rgba(255, 255, 255, 0.95);
+      filter: drop-shadow(-4px 0px 2px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Ombre orange éclatante */
+    .glow-orange {
+      box-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
+    }
+
+    @keyframes shimmer {
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    /* Vagues SVG (Collines) */
+    .waves-container {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .wave-svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+    }
+
+    /* Cacher le lecteur audio par défaut */
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-gradient-to-b from-garden-800 via-garden-700 to-garden-600 min-h-screen relative overflow-x-hidden text-gray-100">
+
+  <!-- Arrière-plan animé : Lucioles et Collines -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <!-- Lucioles -->
+    <div class="absolute left-[10%] bottom-[-5%] animate-firefly" style="animation-duration: 9s; animation-delay: 1s;">
+      <div class="w-4 h-4 rounded-full bg-yellow-300 shadow-[0_0_15px_rgba(253,224,71,0.8)]"></div>
+    </div>
+    <div class="absolute left-[30%] bottom-[-5%] animate-firefly" style="animation-duration: 12s; animation-delay: 4s;">
+      <div class="w-6 h-6 rounded-full bg-yellow-200 shadow-[0_0_20px_rgba(253,224,71,0.8)]"></div>
+    </div>
+    <div class="absolute left-[60%] bottom-[-5%] animate-firefly" style="animation-duration: 10s; animation-delay: 2s;">
+      <div class="w-3 h-3 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(253,224,71,0.8)]"></div>
+    </div>
+    <div class="absolute left-[85%] bottom-[-5%] animate-firefly" style="animation-duration: 15s; animation-delay: 0s;">
+      <div class="w-5 h-5 rounded-full bg-yellow-300 shadow-[0_0_15px_rgba(253,224,71,0.8)]"></div>
+    </div>
+  </div>
+
+  <!-- Collines au fond -->
+  <div class="waves-container">
+    <svg class="wave-svg animate-wave-slow opacity-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+      preserveAspectRatio="none">
+      <path fill="#064e3b" fill-opacity="1"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+      <path fill="#064e3b" fill-opacity="1" transform="translate(1440,0)"
+        d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+    </svg>
+    <svg class="wave-svg animate-wave-medium opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+      preserveAspectRatio="none">
+      <path fill="#065f46" fill-opacity="1"
+        d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,256C840,256,960,224,1080,213.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+      </path>
+      <path fill="#065f46" fill-opacity="1" transform="translate(1440,0)"
+        d="M0,256L60,245.3C120,235,240,213,360,218.7C480,224,600,256,720,256C840,256,960,224,1080,213.3C1200,203,1320,213,1380,218.7L1440,224L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z">
+      </path>
+    </svg>
+    <svg class="wave-svg animate-wave-fast opacity-80" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"
+      preserveAspectRatio="none">
+      <path fill="#047857" fill-opacity="1"
+        d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,197.3C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+      <path fill="#047857" fill-opacity="1" transform="translate(1440,0)"
+        d="M0,160L48,144C96,128,192,96,288,106.7C384,117,480,171,576,197.3C672,224,768,224,864,208C960,192,1056,160,1152,149.3C1248,139,1344,149,1392,154.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
+      </path>
+    </svg>
+  </div>
+
+  <article class="relative z-10 max-w-5xl mx-auto px-4 py-16">
+
+    <!-- En-tête -->
+    <header class="mb-20 text-center relative group animate-float-slow">
+      <div
+        class="absolute inset-0 top-10 bg-garden-100 blur-[120px] opacity-20 rounded-full scale-150 transition-opacity duration-700 group-hover:opacity-40">
+      </div>
+
+      <div class="relative inline-block">
+        <img src="images/jose-couleur.png" alt="José le Robot Tondeuse et Panache l'écureuil"
+          class="relative mx-auto rounded-full w-64 h-64 object-cover object-[50%_50%] shadow-[0_0_40px_rgba(0,0,0,0.6)] mb-8 transform transition-transform duration-700 group-hover:scale-105 border-[6px] border-garden-100 border-opacity-80 bg-white">
+        <!-- Petit décor feuille -->
+        <div class="absolute -bottom-2 -right-2 text-5xl animate-bounce" style="animation-duration: 2s;">🍃</div>
+      </div>
+
+      <h1
+        class="font-fredoka text-6xl md:text-8xl tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-garden-100 via-white to-metal-light drop-shadow-[0_5px_5px_rgba(0,0,0,0.8)] mb-2">
+        L'Univers de José
+      </h1>
+      <h2 class="font-fredoka text-4xl md:text-5xl text-garden-100 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] mb-8">Le
+        Robot Tondeuse</h2>
+
+      <p
+        class="text-xl md:text-2xl text-garden-100 font-bold bg-garden-900/60 inline-block px-8 py-3 rounded-full backdrop-blur-md border border-white/10 shadow-lg">
+        Bienvenue dans le jardin de José ! 🤖🍃 Accompagne notre robot préféré et son ami Panache l'écureuil.
+      </p>
+    </header>
+
+    <!-- Section Audio : Lecteur personnalisé -->
+    <section class="mb-24 relative max-w-2xl mx-auto perspective-container">
+      <div
+        class="tilt-card preserve-3d p-10 bg-gradient-to-br from-metal-light to-[#d1d5db] rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col items-center border-[6px] border-metal-dark/20 glow-orange relative overflow-hidden">
+
+        <div
+          class="bg-gradient-to-br from-garden-600 to-garden-500 text-white rounded-full p-4 mb-2 shadow-xl transform -translate-y-16 absolute translate-z-50 border-4 border-metal-light z-20">
+          <span class="text-5xl">📻</span>
+        </div>
+
+        <h2
+          class="font-fredoka text-5xl mb-12 text-garden-900 mt-8 tracking-wide drop-shadow-sm translate-z-30 text-center">
+          La Chanson de José</h2>
+
+        <!-- LECTEUR AUDIO "Trace de tonte" -->
+        <div
+          class="w-full bg-white p-6 rounded-3xl shadow-[inset_0_0_15px_rgba(0,0,0,0.1)] border-2 border-metal-DEFAULT translate-z-40 relative">
+
+          <audio id="jose-audio" src="audio/jose.mp3" preload="metadata"></audio>
+
+          <div class="relative z-10 flex flex-col items-center w-full">
+            <div class="flex items-center w-full justify-between mb-2 px-2 text-metal-dark font-bold text-sm">
+              <span id="time-current">0:00</span>
+              <span id="time-total">0:00</span>
+            </div>
+
+            <div class="flex items-center w-full mb-6">
+              <button id="play-btn"
+                class="w-16 h-16 mr-4 md:mr-6 flex items-center justify-center bg-gradient-to-br from-garden-500 to-garden-700 text-white rounded-full shadow-[0_5px_10px_rgba(4,120,87,0.4)] hover:scale-110 transition-transform active:scale-95 text-3xl pb-1 relative z-20 flex-shrink-0">
+                ▶️
+              </button>
+
+              <div class="relative flex-grow h-24 group cursor-pointer" id="progress-container">
+                <svg id="audio-curve-svg" class="w-full h-full overflow-visible" preserveAspectRatio="none"
+                  viewBox="0 0 1000 100">
+                  <path id="curve-bg" d="M 40 50 C 150 -50, 250 150, 400 50 S 700 -50, 920 50" fill="none"
+                    stroke="#d1fae5" stroke-width="8" stroke-linecap="round" stroke-dasharray="15 15" />
+                  <path id="curve-fill" d="M 40 50 C 150 -50, 250 150, 400 50 S 700 -50, 920 50" fill="none"
+                    stroke="#10b981" stroke-width="8" stroke-linecap="round" />
+                  <text x="960" y="55" font-size="40" text-anchor="middle" dominant-baseline="middle">🐿️</text>
+                </svg>
+                <!-- Avatar HTML -->
+                <div id="progress-thumb-div" class="absolute pointer-events-none drop-shadow-md"
+                  style="top: 50%; left: 4%; transform: translate(-50%, -50%); width: 44px; height: 44px; z-index: 10;">
+                  <img src="images/jose-avatar.png"
+                    class="w-full h-full object-cover rounded-full border-2 border-white shadow-sm">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paroles (Karaoké Synchronisé) -->
+        <button onclick="document.getElementById('lyrics-container').classList.toggle('hidden')"
+          class="mt-6 text-garden-700 underline font-bold text-lg hover:text-garden-900 transition-colors">
+          🎤 Afficher le Karaoké !
+        </button>
+        <div
+          class="w-full mt-4 bg-[#fdfbfb] p-6 rounded-3xl h-64 overflow-y-auto border-2 border-metal-DEFAULT text-center text-gray-400 font-bold hidden shadow-inner scroll-smooth relative"
+          id="lyrics-container">
+          <div id="lyrics-content" class="flex flex-col gap-6 py-24 transition-all duration-300">
+            <!-- Les paroles seront injectées ici par JavaScript -->
+          </div>
+        </div>
+
+        <a href="audio/jose.mp3" download="chanson-jose.mp3"
+          class="mt-10 group relative inline-flex items-center justify-center px-10 py-5 font-bold text-white text-xl transition-all duration-300 bg-gradient-to-b from-squirrel-light to-squirrel-DEFAULT rounded-full hover:to-squirrel-light hover:scale-105 shadow-[0_10px_20px_rgba(249,115,22,0.4)] overflow-hidden translate-z-50 border-2 border-squirrel-light">
+          <span class="relative z-10 flex items-center">
+            <span class="text-3xl mr-3">📥</span> Télécharger la chanson !
+          </span>
+          <div
+            class="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/50 to-transparent group-hover:animate-[shimmer_1.5s_infinite]">
+          </div>
+        </a>
+        <p class="mt-4 text-metal-dark text-sm font-semibold translate-z-40 text-center max-w-xs">
+          (Si la musique s'ouvre au lieu de se télécharger, fais un clic-droit sur le bouton puis "Enregistrer le lien
+          sous...")
+        </p>
+      </div>
+    </section>
+
+    <!-- Grille d'activités -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 relative z-10">
+
+      <!-- Carte Coloriage -->
+      <div class="perspective-container">
+        <div
+          class="tilt-card preserve-3d relative p-10 bg-gradient-to-br from-white to-green-50 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-[6px] border-green-200/50 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-green-400 to-emerald-300"></div>
+          <h3 class="font-fredoka text-4xl mb-6 text-green-900 tracking-wide translate-z-30">Imprime ton Coloriage</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 translate-z-50 w-full px-4">
+            <a href="images/jose-coloriage.png" download="jose-coloriage-1.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/jose-coloriage.png" alt="Coloriage José et Panache"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-green-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-green-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm md:text-base">
+                ⬇️ Enregistrer</div>
+            </a>
+            <a href="images/jose-coloriage-2.png" download="jose-coloriage-2.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/jose-coloriage-2.png" alt="Coloriage José tondeuse"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-green-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-green-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm md:text-base">
+                ⬇️ Enregistrer</div>
+            </a>
+            <a href="images/jose-coloriage-3.png" download="jose-coloriage-3.png"
+              class="group relative block transform hover:scale-105 transition-transform duration-300">
+              <img src="images/jose-coloriage-3.png" alt="Coloriage José et le papillon"
+                class="w-full drop-shadow-xl rounded-xl border-4 border-green-100 mix-blend-multiply">
+              <div
+                class="absolute inset-0 bg-green-500/80 text-white font-bold opacity-0 group-hover:opacity-100 flex items-center justify-center rounded-xl transition-opacity text-sm md:text-base">
+                ⬇️ Enregistrer</div>
+            </a>
+          </div>
+          <div
+            class="mt-auto bg-gradient-to-r from-green-400 to-emerald-500 text-white font-bold text-lg md:text-xl px-8 py-3 rounded-full shadow-[0_5px_15px_rgba(16,185,129,0.3)] border-2 border-white translate-z-40">
+            🖍️ Choisis ton dessin !
+          </div>
+        </div>
+      </div>
+
+      <!-- Carte DIY -->
+      <div class="perspective-container">
+        <div
+          class="tilt-card preserve-3d relative p-10 bg-gradient-to-br from-white to-orange-50 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.4)] border-[6px] border-orange-200/50 overflow-hidden flex flex-col items-center text-center h-full">
+          <div class="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-orange-400 to-yellow-400"></div>
+          <h3 class="font-fredoka text-4xl mb-4 text-orange-900 tracking-wide translate-z-30">Fabrique ton masque !</h3>
+          <p class="text-gray-600 mb-8 flex-grow font-bold text-lg px-2 translate-z-30">
+            Deviens aussi rapide et malicieux que Panache l'écureuil grâce à ce masque en papier à découper !
+          </p>
+          <a href="jose-diy-masque.html" target="_blank"
+            class="mt-auto inline-flex items-center px-8 py-4 bg-gradient-to-br from-orange-500 to-yellow-500 text-white font-bold text-lg rounded-full shadow-[0_10px_20px_rgba(249,115,22,0.3)] hover:shadow-[0_15px_30px_rgba(249,115,22,0.5)] hover:scale-105 transition-all translate-z-40 border-2 border-orange-400">
+            <span class="text-2xl mr-2">✂️</span> Patron du Masque
+          </a>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Bulle de BD "Le Savais-tu ?" -->
+    <section class="max-w-3xl mx-auto relative pl-4 md:pl-24 animate-float-fast mb-32 z-10">
+      <div
+        class="absolute left-0 top-1/2 -translate-y-1/2 text-7xl hidden md:block drop-shadow-[0_10px_10px_rgba(0,0,0,0.6)] transform -rotate-12 z-20">
+        🐿️
+      </div>
+
+      <div
+        class="relative bg-white/95 backdrop-blur-md p-10 rounded-[3rem] shadow-[0_20px_40px_rgba(0,0,0,0.5)] border-[6px] border-white text-gray-800">
+        <div class="speech-bubble-tail hidden md:block"></div>
+        <div
+          class="absolute -top-[20px] left-1/2 -translate-x-1/2 w-0 h-0 border-b-[20px] border-b-white/95 border-l-[15px] border-l-transparent border-r-[15px] border-r-transparent md:hidden">
+        </div>
+
+        <div class="flex items-center justify-center md:justify-start mb-6 border-b-2 border-gray-200 pb-4">
+          <span class="text-5xl mr-4 animate-pulse">💡</span>
+          <h2 class="font-fredoka text-5xl text-garden-800 tracking-wider drop-shadow-sm">Le Savais-tu ?</h2>
+        </div>
+
+        <p class="text-xl md:text-2xl leading-relaxed font-bold text-metal-dark text-center md:text-left">
+          Savais-tu que les écureuils sont les plus grands jardiniers de la forêt ? 🌳
+          <br><br>
+          Ils cachent des milliers de noisettes sous terre pour l'hiver, mais ils en oublient beaucoup ! Au printemps,
+          ces graines oubliées poussent et deviennent de magnifiques arbres.
+          <span class="block mt-6 text-squirrel-DEFAULT text-3xl font-fredoka tracking-wide">Merci Panache ! 🌰</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Le Livre Web Animé (Histoire du soir) -->
+    <section
+      class="relative z-10 max-w-5xl mx-auto bg-white/95 backdrop-blur rounded-[3rem] p-10 shadow-xl border-4 border-garden-300 mt-24">
+      <div class="flex items-center justify-center mb-8">
+        <span class="text-5xl mr-4">📖</span>
+        <h2 class="font-fredoka text-5xl text-garden-900 tracking-wide">L'Histoire de José</h2>
+      </div>
+
+      <!-- Slider Container -->
+      <div
+        class="relative w-full overflow-hidden rounded-3xl bg-garden-50 border-4 border-garden-100 aspect-video md:aspect-[21/9] flex items-center justify-center shadow-inner">
+
+        <!-- Slide 1 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-100"
+          id="slide-1">
+          <img src="images/jose-slide-1.png" alt="José dort dans le jardin"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-[0_10px_20px_rgba(4,120,87,0.2)] mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-garden-900 flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Le soleil se lève doucement sur le grand jardin, éclairant les perles de rosée sur l'herbe fraîche. C'est
+            l'heure pour José de se réveiller. Ses petits voyants clignotent joyeusement, et avec un doux ronronnement,
+            il s'étire et commence sa tournée. L'herbe chatouille ses roues alors qu'il trace de jolies lignes vertes
+            parfaitement tondues.
+          </p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-2">
+          <img src="images/jose-slide-2.png" alt="José rencontre Panache"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-[0_10px_20px_rgba(4,120,87,0.2)] mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-garden-900 flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Pendant qu'il travaille, une petite tête rousse sort des buissons. C'est Panache l'écureuil ! Très curieux,
+            Panache s'approche de José et commence à courir à côté de lui. L'écureuil fait de grands bonds majestueux,
+            essayant de faire la course avec la petite machine. José répond avec un joyeux "Bip bip !", très heureux
+            d'avoir de la compagnie.
+          </p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-3">
+          <img src="images/jose-slide-3.png" alt="L'arrosage automatique se déclenche"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-[0_10px_20px_rgba(4,120,87,0.2)] mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-garden-900 flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Soudain, un sifflement retentit : Pschiit ! L'arrosage automatique vient de s'allumer. De grands jets d'eau
+            se mettent à tournoyer dans les airs, créant de jolis arcs-en-ciel. José s'arrête net. Oh là là, les robots
+            et l'eau, ça ne fait pas bon ménage ! Il ferme vite son clapet de sécurité. Panache, lui, trouve ça très
+            drôle et saute au milieu des gouttes.
+          </p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div
+          class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-8 transition-opacity duration-500 opacity-0 pointer-events-none"
+          id="slide-4">
+          <img src="images/jose-slide-4.png" alt="José et Panache à l'abri"
+            class="w-1/2 md:w-5/12 max-w-[200px] md:max-w-[300px] aspect-square object-cover rounded-2xl shadow-[0_10px_20px_rgba(4,120,87,0.2)] mb-4 md:mb-0 md:mr-8 border-4 border-white">
+          <p
+            class="text-lg md:text-xl font-semibold text-center md:text-left text-garden-900 flex-1 leading-relaxed overflow-y-auto max-h-full pr-2">
+            Voyant que son ami robot n'aime pas la pluie artificielle, Panache le guide jusqu'à une zone sèche.
+            L'écureuil cueille une feuille de rhubarbe géante et la tient comme un grand parapluie vert au-dessus de
+            José. À l'abri et bien au sec, les deux amis regardent le spectacle de l'eau qui danse en attendant que le
+            soleil sèche le jardin.
+          </p>
+        </div>
+
+        <!-- Controls -->
+        <button onclick="changeSlide(-1)"
+          class="absolute left-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-white/90 rounded-full shadow-lg text-3xl md:text-4xl text-garden-700 hover:bg-garden-200 hover:scale-110 transition-all flex items-center justify-center pb-1">◀</button>
+        <button onclick="changeSlide(1)"
+          class="absolute right-4 top-1/2 -translate-y-1/2 w-14 h-14 md:w-16 md:h-16 bg-white/90 rounded-full shadow-lg text-3xl md:text-4xl text-garden-700 hover:bg-garden-200 hover:scale-110 transition-all flex items-center justify-center pb-1">▶</button>
+
+        <!-- Audio de l'histoire -->
+        <audio id="story-audio" src="audio/jose_story.mp3"></audio>
+        <button id="story-play-btn" onclick="toggleStoryAudio()"
+          class="absolute bottom-4 right-4 bg-garden-500 text-white px-4 py-2 md:px-6 md:py-3 rounded-full font-bold shadow-[0_5px_10px_rgba(16,185,129,0.4)] hover:bg-garden-600 hover:scale-105 transition-all text-sm md:text-base flex items-center gap-2">
+          <span class="text-xl" id="story-icon">🔊</span> Écouter l'histoire
+        </button>
+      </div>
+
+      <!-- Pagination -->
+      <div class="flex justify-center mt-8 gap-4" id="pagination">
+        <button onclick="goToSlide(1)" class="w-5 h-5 rounded-full bg-garden-500 transition-colors shadow-sm"
+          id="dot-1"></button>
+        <button onclick="goToSlide(2)"
+          class="w-5 h-5 rounded-full bg-garden-200 hover:bg-garden-300 transition-colors shadow-sm"
+          id="dot-2"></button>
+        <button onclick="goToSlide(3)"
+          class="w-5 h-5 rounded-full bg-garden-200 hover:bg-garden-300 transition-colors shadow-sm"
+          id="dot-3"></button>
+        <button onclick="goToSlide(4)"
+          class="w-5 h-5 rounded-full bg-garden-200 hover:bg-garden-300 transition-colors shadow-sm"
+          id="dot-4"></button>
+      </div>
+
+    </section>
+
+    <!-- Affiliation (En pause stratégique) -->
+    <!--
+    <section class="relative z-10 max-w-5xl mx-auto bg-white/90 backdrop-blur rounded-[3rem] p-10 shadow-xl border-4 border-garden-100">
+      <h2 class="font-fredoka text-4xl text-center text-garden-900 mb-10">Le Matériel Parfait pour les Petits Jardiniers 🌻</h2>
+      ...
+    </section>
+    -->
+
+  </article>
+
+  <!-- Script pour le lecteur audio -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("jose-audio");
+      const playBtn = document.getElementById("play-btn");
+      const curveBg = document.getElementById("curve-bg");
+      const curveFill = document.getElementById("curve-fill");
+      const thumbDiv = document.getElementById("progress-thumb-div");
+      const svgContainer = document.getElementById("audio-curve-svg");
+      const progressContainer = document.getElementById("progress-container");
+      const timeCurrent = document.getElementById("time-current");
+      const timeTotal = document.getElementById("time-total");
+
+      const pathLength = curveBg.getTotalLength();
+      curveFill.style.strokeDasharray = pathLength;
+      curveFill.style.strokeDashoffset = pathLength;
+
+      // ⚠️ Ajuste ces temps pour correspondre à ton fichier
+      const lyricsData = [
+        { time: 4.4, text: "Bip, bip, bip, c’est José le robot," }, // 
+        { time: 7.2, text: "Il roule sur l’herbe, il est très beau." }, // 
+        { time: 9.9, text: "Zou, zou, zou, il coupe les brindilles," }, // [cite: 2]
+        { time: 12.6, text: "Sous le soleil, sa carapace brille !" }, // [cite: 2]
+        { time: 16.4, text: "José avance, Panache le suit," }, // [cite: 3]
+        { time: 19.1, text: "Ils sont les meilleurs amis aujourd'hui." }, // [cite: 3]
+        { time: 22.9, text: "L'écureuil saute, José fait 'vroum'," }, // [cite: 4]
+        { time: 26.6, text: "Dans le jardin, ça fait 'poum-poum'." }, // [cite: 4]
+        { time: 30.5, text: "Mais attention ! 'Pschiit !'" }, // 
+        { time: 34.2, text: "Dans les airs, l'arrosage lance ses jets de lumière !" }, // 
+        { time: 37.5, text: "L'eau bondit, tourne et fait des cercles," }, // 
+        { time: 41.3, text: "José s'arrête, il ferme son couvercle !" }, // 
+        { time: 41.8, text: "Panache s'amuse, il prend sa douche," }, // [cite: 6]
+        { time: 46.2, text: "Une goutte d'eau arrive sur sa bouche !" }, // [cite: 6]
+        { time: 49.4, text: "José fait marche arrière, il est tout mouillé," }, // [cite: 7]
+        { time: 53.2, text: "Il cherche un abri pour se protéger." }, // [cite: 7]
+        { time: 57.0, text: "L'écureuil rit et fait une galipette," }, // [cite: 8]
+        { time: 60.7, text: "Vite José, sous la grande poussette !" }, // [cite: 8]
+        { time: 64.5, text: "Bip, bip, bip, c’est José le robot," }, // [cite: 9]
+        { time: 68.2, text: "Il va se recharger, il fait dodo." }, // [cite: 9]
+        { time: 72.0, text: "Zou, zou, zou, le travail est fini," }, // 
+        { time: 75.7, text: "À demain Panache, mon grand ami !" } // 
+      ];
+
+      const lyricsContent = document.getElementById("lyrics-content");
+      let lyricsElements = [];
+
+      lyricsData.forEach((line) => {
+        const p = document.createElement("p");
+        p.innerHTML = line.text;
+        if (line.isTitle) {
+          p.className = "text-garden-800 text-xl mt-4 transition-all duration-300";
+        } else {
+          p.className = "text-gray-400 text-lg transition-all duration-300";
+        }
+        lyricsContent.appendChild(p);
+        lyricsElements.push(p);
+      });
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      playBtn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerHTML = "⏸️";
+        } else {
+          audio.pause();
+          playBtn.innerHTML = "▶️";
+        }
+      });
+
+      let activeLyricIndex = -1;
+
+      audio.addEventListener("timeupdate", () => {
+        timeCurrent.textContent = formatTime(audio.currentTime);
+        if (audio.duration) {
+          const percent = audio.currentTime / audio.duration;
+          curveFill.style.strokeDashoffset = pathLength - (percent * pathLength);
+
+          const point = curveBg.getPointAtLength(percent * pathLength);
+          const percentX = point.x / 1000;
+          const percentY = point.y / 100;
+          thumbDiv.style.left = (percentX * 100) + "%";
+          thumbDiv.style.top = (percentY * 100) + "%";
+        }
+
+        let newActiveIndex = -1;
+        for (let i = 0; i < lyricsData.length; i++) {
+          if (audio.currentTime >= lyricsData[i].time) {
+            newActiveIndex = i;
+          } else {
+            break;
+          }
+        }
+
+        if (newActiveIndex !== activeLyricIndex && newActiveIndex !== -1) {
+          if (activeLyricIndex !== -1 && !lyricsData[activeLyricIndex].isTitle) {
+            lyricsElements[activeLyricIndex].classList.replace('text-garden-600', 'text-gray-400');
+            lyricsElements[activeLyricIndex].classList.remove('scale-105');
+          }
+
+          if (!lyricsData[newActiveIndex].isTitle) {
+            lyricsElements[newActiveIndex].classList.replace('text-gray-400', 'text-garden-600');
+            lyricsElements[newActiveIndex].classList.add('scale-105');
+            lyricsElements[newActiveIndex].scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+          activeLyricIndex = newActiveIndex;
+        }
+      });
+
+      audio.addEventListener("ended", () => {
+        playBtn.innerHTML = "▶️";
+        curveFill.style.strokeDashoffset = pathLength;
+        thumbDiv.style.left = "4%";
+        thumbDiv.style.top = "50%";
+        if (lyricsElements.length > 0) {
+          lyricsElements[0].scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+
+      svgContainer.addEventListener("click", (e) => {
+        if (!audio.duration) return;
+        const rect = svgContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentX = Math.max(0, Math.min(1, clickX / rect.width));
+        audio.currentTime = percentX * audio.duration;
+      });
+    });
+
+    // --- JS pour le Livre Web Animé ---
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function updateSlider() {
+      // Mettre à jour l'affichage des slides
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById('slide-' + i);
+        const dot = document.getElementById('dot-' + i);
+
+        if (i === currentSlide) {
+          slide.classList.remove('opacity-0', 'pointer-events-none');
+          slide.classList.add('opacity-100');
+          dot.classList.replace('bg-garden-200', 'bg-garden-500');
+        } else {
+          slide.classList.remove('opacity-100');
+          slide.classList.add('opacity-0', 'pointer-events-none');
+          dot.classList.replace('bg-garden-500', 'bg-garden-200');
+        }
+      }
+    }
+
+    function changeSlide(direction) {
+      currentSlide += direction;
+      if (currentSlide > totalSlides) currentSlide = 1;
+      if (currentSlide < 1) currentSlide = totalSlides;
+      updateSlider();
+    }
+
+    function goToSlide(slideNum) {
+      currentSlide = slideNum;
+      updateSlider();
+    }
+
+    // --- Audio Histoire JS ---
+    function toggleStoryAudio() {
+      const audio = document.getElementById("story-audio");
+      const icon = document.getElementById("story-icon");
+      if (audio.paused) {
+        audio.play();
+        icon.innerText = "⏸️";
+      } else {
+        audio.pause();
+        icon.innerText = "🔊";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const storyAudio = document.getElementById("story-audio");
+      if (storyAudio) {
+        storyAudio.addEventListener("ended", () => {
+          document.getElementById("story-icon").innerText = "🔊";
+        });
+      }
+    });
+    // -----------------------------------
+  </script>
+</body>
+
+</html>

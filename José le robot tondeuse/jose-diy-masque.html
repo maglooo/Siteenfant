@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Patron Masque - José le Robot Tondeuse</title>
+  <style>
+    @page { size: A4 portrait; margin: 10mm; }
+    body { font-family: 'Helvetica', 'Arial', sans-serif; text-align: center; color: #333; margin: 0; padding: 20px; background-color: #fdf4ff; }
+    h1 { color: #f97316; font-size: 36px; margin-bottom: 10px; }
+    .instructions { text-align: left; max-width: 800px; margin: 0 auto 30px auto; font-size: 18px; line-height: 1.6; background: #fff; padding: 25px; border-radius: 15px; border: 3px dashed #fdba74; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+    .page-box { background: white; border: 2px solid #000; padding: 10mm; width: 210mm; height: 297mm; box-sizing: border-box; margin: 0 auto; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    .cut-line { stroke: black; stroke-width: 3; stroke-dasharray: 10, 6; fill: none; }
+    
+    .print-btn { display: inline-block; background: #f97316; color: white; padding: 15px 40px; font-size: 22px; text-decoration: none; border-radius: 50px; font-weight: bold; margin-bottom: 30px; cursor: pointer; border: none; transition: transform 0.2s; }
+    .print-btn:hover { background: #ea580c; transform: scale(1.05); }
+    
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: white; padding: 0; }
+      .page-box { border: none; padding: 0; margin: 0; box-shadow: none; width: 100%; height: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Zone visible uniquement sur l'écran -->
+  <div class="no-print">
+    <h1>Le Masque de Panache l'Écureuil 🐿️</h1>
+    <div class="instructions">
+      <strong>Instructions de montage :</strong><br><br>
+      1. 🖨️ <b>Imprime</b> cette page sur du papier épais (format A4, échelle 100%).<br>
+      2. 🖍️ <b>Colorie</b> le masque avec tes plus belles couleurs (orange, marron, blanc...).<br>
+      3. ✂️ <b>Découpe</b> les contours du masque en suivant les pointillés, et demande à un adulte de t'aider à évider les yeux.<br>
+      4. 🧵 <b>Perce</b> deux petits trous sur les côtés (marqués par les petits ronds) pour y passer un fil élastique ou une ficelle.<br>
+      5. 🌳 <b>Place-le sur ton visage</b> et pars te cacher dans le jardin !
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer mon Patron</button>
+  </div>
+
+  <!-- Zone imprimée (Le Patron A4) -->
+  <div class="page-box">
+    <svg viewBox="0 0 800 1130" width="100%" height="100%">
+      
+      <!-- Titre imprimé -->
+      <text x="400" y="100" font-size="30" text-anchor="middle" font-weight="bold" fill="#ddd">MASQUE ÉCUREUIL</text>
+
+      <g transform="translate(75, 170) scale(1.3)">
+        <!-- Contour Tête et Oreilles -->
+        <path d="M 100,250 C 50,200 50,50 150,100 C 200,50 400,50 450,100 C 550,50 550,200 500,250 C 550,350 450,450 300,450 C 150,450 50,350 100,250 Z" class="cut-line" />
+        
+        <!-- Intérieur des oreilles (Détail) -->
+        <path d="M 130,130 C 100,90 100,100 150,110 C 170,120 180,150 160,160 Z" fill="none" stroke="#ccc" stroke-width="2" />
+        <path d="M 470,130 C 500,90 500,100 450,110 C 430,120 420,150 440,160 Z" fill="none" stroke="#ccc" stroke-width="2" />
+        
+        <!-- Yeux à découper -->
+        <circle cx="200" cy="250" r="40" class="cut-line" />
+        <circle cx="400" cy="250" r="40" class="cut-line" />
+        
+        <!-- Museau et Joues (Dessin) -->
+        <path d="M 280,330 C 280,310 320,310 320,330 C 320,350 280,350 280,330 Z" fill="none" stroke="#000" stroke-width="3" />
+        <path d="M 300,345 C 280,360 250,350 240,330" fill="none" stroke="#000" stroke-width="3" />
+        <path d="M 300,345 C 320,360 350,350 360,330" fill="none" stroke="#000" stroke-width="3" />
+        
+        <!-- Moustaches -->
+        <line x1="240" y1="330" x2="160" y2="310" stroke="#000" stroke-width="3" />
+        <line x1="240" y1="340" x2="150" y2="340" stroke="#000" stroke-width="3" />
+        <line x1="240" y1="350" x2="160" y2="370" stroke="#000" stroke-width="3" />
+        
+        <line x1="360" y1="330" x2="440" y2="310" stroke="#000" stroke-width="3" />
+        <line x1="360" y1="340" x2="450" y2="340" stroke="#000" stroke-width="3" />
+        <line x1="360" y1="350" x2="440" y2="370" stroke="#000" stroke-width="3" />
+
+        <!-- Trous pour la ficelle -->
+        <circle cx="120" cy="250" r="8" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="2,2" />
+        <circle cx="480" cy="250" r="8" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="2,2" />
+        
+        <!-- Annotations (à l'extérieur) -->
+        <text x="75" y="255" font-size="16" fill="#666" text-anchor="end">Percer &rarr;</text>
+        <text x="525" y="255" font-size="16" fill="#666" text-anchor="start">&larr; Percer</text>
+      </g>
+    </svg>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patron Tricorne Hector - À Imprimer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @page { 
+            size: A4 landscape; 
+            margin: 0; 
+        }
+        body {
+            background-color: #f3f4f6;
+        }
+        .a4-page {
+            width: 297mm;
+            height: 209mm; /* Un peu moins que 210mm pour éviter les débordements */
+            margin: 10mm auto;
+            background: white;
+            padding: 15mm;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        @media print {
+            body { 
+                background-color: white; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+            }
+            .a4-page { 
+                margin: 0; 
+                box-shadow: none; 
+                width: 100%; 
+                height: 100vh;
+                page-break-after: always;
+            }
+            .no-print { 
+                display: none !important; 
+            }
+        }
+        /* Ligne de découpe pointillée */
+        .cut-line {
+            stroke: #000;
+            stroke-width: 3;
+            stroke-dasharray: 10, 10;
+            fill: none;
+        }
+        .fold-line {
+            stroke: #666;
+            stroke-width: 2;
+            stroke-dasharray: 5, 5;
+            fill: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bouton d'impression (invisible à l'impression) -->
+    <div class="no-print text-center py-6 sticky top-0 bg-gray-800 text-white z-50 shadow-md">
+        <h1 class="text-2xl font-bold mb-2">Patron du Chapeau d'Hector</h1>
+        <p class="mb-4">Pour obtenir le PDF : Cliquez sur "Imprimer" puis choisissez la destination <strong>"Enregistrer au format PDF"</strong>.</p>
+        <button onclick="window.print()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
+            🖨️ Imprimer ou Sauvegarder en PDF
+        </button>
+        <a href="hector.html" class="ml-4 text-gray-300 hover:text-white underline">Retour au site</a>
+    </div>
+
+    <!-- PAGE 1 : Instructions et Logo -->
+    <div class="a4-page flex flex-col">
+        <div class="border-4 border-orange-200 rounded-2xl p-8 flex-grow flex flex-col">
+            <header class="text-center mb-8">
+                <h1 class="text-4xl font-extrabold text-orange-600 mb-2">Fabrique ton Tricorne de Pirate !</h1>
+                <p class="text-xl text-gray-600">Deviens un vrai T-Rex des mers comme Hector 🦖🏴‍☠️</p>
+            </header>
+
+            <div class="flex gap-8 flex-grow">
+                <!-- Instructions -->
+                <div class="flex-1 bg-orange-50 p-6 rounded-xl border border-orange-100">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">📋 Instructions d'assemblage</h2>
+                    <ol class="space-y-4 text-lg text-gray-700">
+                        <li class="flex items-start">
+                            <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 shrink-0">1</span>
+                            <p><strong>Colorie le logo</strong> à droite avec tes plus belles couleurs (tu peux utiliser du rouge, du noir ou du doré !).</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 shrink-0">2</span>
+                            <p><strong>Découpe le logo</strong> en suivant les pointillés, puis découpe les deux parties du chapeau (Pages 2 et 3).</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 shrink-0">3</span>
+                            <p><strong>Colle le logo</strong> au centre de la forme du chapeau "Avant" (Page 2).</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 shrink-0">4</span>
+                            <p><strong>Assemble le chapeau :</strong> Superpose la partie "Avant" et la partie "Arrière". Agrafe ou colle les bords (zones grisées sur les côtés).</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-3 shrink-0">5</span>
+                            <p><strong>Place-le sur ta tête</strong> et crie "À l'abordage du chocolat !" 🍫</p>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Logo à colorier -->
+                <div class="w-1/3 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-6 bg-white">
+                    <h3 class="text-xl font-bold text-center mb-4 text-gray-800">✂️ Découpe et colorie moi !</h3>
+                    
+                    <!-- SVG Logo Os Croisé -->
+                    <svg viewBox="0 0 200 200" class="w-full h-auto" style="max-height: 200px;">
+                        <!-- Pointillés de découpe autour du logo -->
+                        <circle cx="100" cy="100" r="95" fill="none" stroke="#666" stroke-width="2" stroke-dasharray="6,6" />
+                        <!-- Os 1 -->
+                        <path d="M 40,40 C 30,20 10,40 20,50 C 10,60 30,80 40,60 L 160,140 C 170,160 190,140 180,130 C 190,120 170,100 160,120 Z" fill="white" stroke="black" stroke-width="4" stroke-linejoin="round"/>
+                        <!-- Os 2 -->
+                        <path d="M 160,40 C 170,20 190,40 180,50 C 190,60 170,80 160,60 L 40,140 C 30,160 10,140 20,130 C 10,120 30,100 40,120 Z" fill="white" stroke="black" stroke-width="4" stroke-linejoin="round"/>
+                        <!-- Crâne du T-Rex simplifié -->
+                        <path d="M 70,110 C 70,60 130,60 130,110 C 130,130 120,150 100,150 C 80,150 70,130 70,110 Z" fill="white" stroke="black" stroke-width="4" />
+                        <!-- Yeux du crâne -->
+                        <circle cx="90" cy="95" r="10" fill="white" stroke="black" stroke-width="3" />
+                        <circle cx="110" cy="95" r="10" fill="white" stroke="black" stroke-width="3" />
+                        <!-- Dents -->
+                        <path d="M 85,125 L 90,135 L 95,125 L 100,135 L 105,125 L 110,135 L 115,125" fill="none" stroke="black" stroke-width="3" stroke-linejoin="round"/>
+                    </svg>
+                    <p class="text-xs text-gray-500 mt-4 text-center">Logo d'Hector le T-Rex Pirate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2 : Chapeau Avant -->
+    <div class="a4-page flex flex-col items-center justify-center">
+        <h2 class="text-2xl font-bold mb-4 text-gray-400 uppercase tracking-widest">Partie Avant du Chapeau (1/2)</h2>
+        <div class="w-full flex-grow relative flex items-center justify-center">
+            <!-- SVG Forme Chapeau -->
+            <svg viewBox="0 0 800 400" class="w-full h-full">
+                <!-- Zone de colle gauche -->
+                <path d="M 100,350 L 100,300 C 100,300 50,150 150,150 L 150,350 Z" fill="#e5e7eb" stroke="none" />
+                <!-- Zone de colle droite -->
+                <path d="M 700,350 L 700,300 C 700,300 750,150 650,150 L 650,350 Z" fill="#e5e7eb" stroke="none" />
+                
+                <!-- Contour à découper -->
+                <path d="M 100,350 C 100,350 50,150 250,150 C 350,150 350,50 400,50 C 450,50 450,150 550,150 C 750,150 700,350 700,350 Z" class="cut-line" />
+                
+                <!-- Ligne de base du chapeau (ouverture tête) -->
+                <path d="M 100,350 Q 400,400 700,350" class="cut-line" />
+
+                <!-- Indication Zone de colle -->
+                <text x="120" y="280" font-size="14" fill="#666" transform="rotate(-45 120,280)">Colle ou Agrafe</text>
+                <text x="630" y="280" font-size="14" fill="#666" transform="rotate(45 630,280)">Colle ou Agrafe</text>
+                
+                <!-- Indication Logo -->
+                <circle cx="400" cy="220" r="50" fill="none" stroke="#ccc" stroke-width="2" stroke-dasharray="4,4" />
+                <text x="400" y="225" font-size="16" fill="#999" text-anchor="middle">Colle le logo ici</text>
+
+                <!-- Icône ciseaux -->
+                <text x="75" y="320" font-size="24">✂️</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- PAGE 3 : Chapeau Arrière -->
+    <div class="a4-page flex flex-col items-center justify-center">
+        <h2 class="text-2xl font-bold mb-4 text-gray-400 uppercase tracking-widest">Partie Arrière du Chapeau (2/2)</h2>
+        <div class="w-full flex-grow relative flex items-center justify-center">
+            <!-- SVG Forme Chapeau -->
+            <svg viewBox="0 0 800 400" class="w-full h-full">
+                <!-- Zone de colle gauche -->
+                <path d="M 100,350 L 100,300 C 100,300 50,150 150,150 L 150,350 Z" fill="#e5e7eb" stroke="none" />
+                <!-- Zone de colle droite -->
+                <path d="M 700,350 L 700,300 C 700,300 750,150 650,150 L 650,350 Z" fill="#e5e7eb" stroke="none" />
+                
+                <!-- Contour à découper -->
+                <path d="M 100,350 C 100,350 50,150 250,150 C 350,150 350,50 400,50 C 450,50 450,150 550,150 C 750,150 700,350 700,350 Z" class="cut-line" />
+                
+                <!-- Ligne de base du chapeau (ouverture tête) -->
+                <path d="M 100,350 Q 400,400 700,350" class="cut-line" />
+
+                <!-- Indication Zone de colle -->
+                <text x="120" y="280" font-size="14" fill="#666" transform="rotate(-45 120,280)">Colle ou Agrafe</text>
+                <text x="630" y="280" font-size="14" fill="#666" transform="rotate(45 630,280)">Colle ou Agrafe</text>
+
+                <!-- Icône ciseaux -->
+                <text x="75" y="320" font-size="24">✂️</text>
+            </svg>
+        </div>
+    </div>
+
+</body>
+</html>
