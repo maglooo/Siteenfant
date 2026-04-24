@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Masque de Marius le Rhinocéros - DIY</title>
+    <style>
+        @page { size: A4; margin: 0; }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .no-print { 
+            background: #f0fdfa; padding: 20px; text-align: center; border-bottom: 2px solid #0d9488;
+        }
+        @media print { .no-print { display: none; } }
+        .page { width: 210mm; height: 297mm; position: relative; margin: auto; overflow: hidden; background: white; }
+        .instructions { position: absolute; font-size: 12px; color: #666; width: 150px; line-height: 1.4; }
+        .instr-1 { top: 20mm; left: 10mm; }
+        .instr-2 { top: 20mm; right: 10mm; text-align: right; }
+        .instr-3 { bottom: 20mm; left: 10mm; }
+        .mask-container { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+        svg { width: 190mm; height: auto; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1)); }
+    </style>
+</head>
+<body>
+    <div class="no-print">
+        <h1>✂️ Ton Masque de Marius !</h1>
+        <p>Demande à un adulte de t'aider à imprimer et découper ce masque de doudou géant.</p>
+        <button onclick="window.print()" style="padding: 10px 20px; font-size: 18px; cursor: pointer; background: #0d9488; color: white; border: none; rounded: 8px;">🖨️ Imprimer le patron</button>
+    </div>
+
+    <div class="page">
+        <div class="instructions instr-1">
+            <b>1. Découpe</b> le long des pointillés noirs.<br>
+            <b>2. Évide</b> soigneusement les yeux.
+        </div>
+        <div class="instructions instr-2">
+            <b>3. Perce</b> les deux petits ronds sur les côtés.<br>
+            <b>4. Attache</b> un élastique pour faire tenir le masque.
+        </div>
+        <div class="instructions instr-3">
+            <b>Astuce :</b> Imprime sur du papier un peu épais (Canson) pour que Marius soit encore plus solide !
+        </div>
+
+        <div class="mask-container">
+            <svg viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Visage de Marius -->
+                <path d="M100,150 Q100,80 250,80 Q400,80 400,150 L400,280 Q400,350 250,350 Q100,350 100,280 Z" fill="#008080" stroke="#004d4d" stroke-width="3" />
+                
+                <!-- Oreilles -->
+                <!-- Oreille gauche -->
+                <path d="M120,90 Q80,20 160,85" fill="#008080" stroke="#004d4d" stroke-width="3" />
+                <path d="M130,85 Q100,40 150,80" fill="#fff" />
+                <!-- Rayures orange oreille gauche -->
+                <path d="M105,45 L135,55" stroke="#ff8c00" stroke-width="4" stroke-linecap="round" />
+                <path d="M115,35 L145,45" stroke="#ff8c00" stroke-width="4" stroke-linecap="round" />
+                
+                <!-- Oreille droite -->
+                <path d="M380,90 Q420,20 340,85" fill="#008080" stroke="#004d4d" stroke-width="3" />
+                <path d="M370,85 Q400,40 350,80" fill="#fff" />
+                <!-- Rayures orange oreille droite -->
+                <path d="M395,45 L365,55" stroke="#ff8c00" stroke-width="4" stroke-linecap="round" />
+                <path d="M385,35 L355,45" stroke="#ff8c00" stroke-width="4" stroke-linecap="round" />
+
+                <!-- Corne (Blanche avec motifs) -->
+                <path d="M230,120 Q250,20 270,120 Z" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2" />
+                <!-- Petits motifs sur la corne -->
+                <path d="M245,60 L255,65" stroke="#98ff98" stroke-width="2" />
+                <path d="M240,80 L260,85" stroke="#ff8c00" stroke-width="2" />
+                <path d="M248,40 L252,42" stroke="#008080" stroke-width="2" />
+
+                <!-- Yeux (à évider) -->
+                <circle cx="180" cy="180" r="25" fill="white" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
+                <circle cx="320" cy="180" r="25" fill="white" stroke="#333" stroke-width="2" stroke-dasharray="5,5" />
+                
+                <!-- Petit sourire -->
+                <path d="M230,300 Q250,320 270,300" fill="none" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round" />
+                
+                <!-- Attaches élastiques -->
+                <circle cx="95" cy="220" r="5" fill="none" stroke="#333" stroke-width="1" />
+                <circle cx="405" cy="220" r="5" fill="none" stroke="#333" stroke-width="1" />
+                
+                <!-- Pointillés de découpe (contour global) -->
+                <path d="M100,150 Q100,80 250,80 Q400,80 400,150 L400,280 Q400,350 250,350 Q100,350 100,280 Z" 
+                      fill="none" stroke="#000" stroke-width="1" stroke-dasharray="8,8" opacity="0.3" transform="scale(1.05) translate(-12, -8)" />
+            </svg>
+        </div>
+    </div>
+</body>
+</html>

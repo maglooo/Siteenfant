@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Découvre l'univers de Marius le Rhinocéros, le doudou protecteur. Histoires magiques, chansons et coloriages pour enfants !">
+  <title>L'Univers de Marius le Rhinocéros | Doudou & Rêves</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Quicksand:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Configuration Tailwind personnalisée -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            outfit: ['"Outfit"', 'sans-serif'],
+            quicksand: ['"Quicksand"', 'sans-serif'],
+          },
+          colors: {
+            marius: {
+              teal: '#008080',
+              orange: '#FF8C00',
+              mint: '#98FF98',
+              bg: '#f0fdfa',
+              dark: '#004d4d',
+            }
+          },
+          animation: {
+            'float-slow': 'float 6s ease-in-out infinite',
+            'float-fast': 'float 4s ease-in-out infinite',
+            'pulse-soft': 'pulseSoft 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-15px)' },
+            },
+            pulseSoft: {
+              '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+              '50%': { opacity: 0.8, transform: 'scale(1.05)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-color: #f0fdfa;
+    }
+
+    .perspective-container { perspective: 1000px; }
+    .preserve-3d { transform-style: preserve-3d; }
+    .tilt-card { transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    .perspective-container:hover .tilt-card { transform: rotateX(3deg) rotateY(-3deg) translateZ(10px); }
+
+    .glow-marius { box-shadow: 0 0 30px rgba(0, 128, 128, 0.2); }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb { background: #008080; border-radius: 10px; }
+    
+    audio { display: none; }
+
+    .wave-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.05;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="text-gray-800 overflow-x-hidden">
+
+  <!-- Background Patterns -->
+  <svg class="wave-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <path fill="#008080" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,144C672,139,768,181,864,202.7C960,224,1056,224,1152,202.7C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+  </svg>
+
+  <article class="relative z-10 max-w-5xl mx-auto px-4 py-12">
+
+    <!-- Header -->
+    <header class="mb-20 text-center animate-float-slow">
+      <div class="relative inline-block mb-8">
+        <div class="absolute inset-0 bg-marius-teal/20 blur-3xl rounded-full scale-150"></div>
+        <img src="images/marius-couleur.png" alt="Marius le Rhinocéros"
+          class="relative mx-auto rounded-3xl w-72 h-72 object-cover shadow-2xl border-[8px] border-white group-hover:scale-105 transition-transform duration-500">
+        <div class="absolute -bottom-4 -right-4 text-6xl animate-bounce">🦏</div>
+      </div>
+
+      <h1 class="font-outfit text-6xl md:text-8xl font-bold text-marius-teal drop-shadow-sm mb-4">
+        Marius
+      </h1>
+      <h2 class="font-quicksand text-3xl md:text-4xl text-marius-orange font-bold mb-8">
+        Le Roi du Ska ! 🎺
+      </h2>
+
+      <p class="text-xl md:text-2xl text-marius-dark font-semibold bg-white/80 backdrop-blur-sm inline-block px-10 py-4 rounded-full shadow-lg border border-marius-teal/10">
+        Préparez vos baskets, Marius vous invite à danser ! ♪
+      </p>
+    </header>
+
+    <!-- Audio Section -->
+    <section class="mb-24 relative max-w-2xl mx-auto perspective-container">
+      <div class="tilt-card preserve-3d p-10 bg-white rounded-[3rem] shadow-2xl border-b-[10px] border-marius-teal/20 flex flex-col items-center">
+        
+        <div class="bg-marius-teal text-white rounded-full p-4 mb-2 shadow-xl transform -translate-y-16 absolute translate-z-50 border-4 border-white z-20">
+          <span class="text-5xl">🎺</span>
+        </div>
+
+        <h2 class="font-outfit text-4xl font-bold mb-10 text-marius-dark mt-8 translate-z-30 text-center">
+          Le Ska de Marius
+        </h2>
+
+        <!-- Custom Audio Player -->
+        <div class="w-full bg-marius-bg/50 p-6 rounded-3xl border-2 border-marius-teal/10 translate-z-40 relative">
+          <audio id="marius-audio" src="audio/marius.mp3" preload="metadata"></audio>
+
+          <div class="relative z-10 flex flex-col items-center w-full">
+            <div class="flex items-center w-full justify-between mb-2 px-2 text-marius-dark font-bold text-sm">
+              <span id="time-current">0:00</span>
+              <span id="time-total">0:00</span>
+            </div>
+
+            <div class="flex items-center w-full mb-6">
+              <button id="play-btn"
+                class="w-16 h-16 mr-4 flex items-center justify-center bg-marius-teal text-white rounded-full shadow-lg hover:scale-110 transition-transform active:scale-95 text-3xl pb-1">
+                ▶️
+              </button>
+
+              <div class="relative flex-grow h-24 cursor-pointer" id="progress-container">
+                <svg id="audio-curve-svg" class="w-full h-full overflow-visible" preserveAspectRatio="none" viewBox="0 0 1000 100">
+                  <path id="curve-bg" d="M 40 50 Q 250 150, 500 50 T 960 50" fill="none" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round" stroke-dasharray="12 12" />
+                  <path id="curve-fill" d="M 40 50 Q 250 150, 500 50 T 960 50" fill="none" stroke="#008080" stroke-width="8" stroke-linecap="round" />
+                  <text x="960" y="55" font-size="40" text-anchor="middle" dominant-baseline="middle">⭐</text>
+                </svg>
+                <!-- Avatar Follower -->
+                <div id="progress-thumb-div" class="absolute pointer-events-none drop-shadow-md" style="top: 50%; left: 4%; transform: translate(-50%, -50%); width: 48px; height: 48px; z-index: 10;">
+                  <img src="images/marius-avatar.png" class="w-full h-full object-cover rounded-full border-4 border-white shadow-md">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button onclick="document.getElementById('lyrics-container').classList.toggle('hidden')"
+          class="mt-6 text-marius-teal underline font-bold text-lg hover:text-marius-orange transition-colors">
+          🎤 Chante avec Marius !
+        </button>
+
+        <div id="lyrics-container" class="w-full mt-4 bg-marius-bg/30 p-6 rounded-3xl h-64 overflow-y-auto border-2 border-marius-teal/5 text-center hidden scroll-smooth relative shadow-inner">
+          <div id="lyrics-content" class="flex flex-col gap-6 py-24 transition-all duration-300">
+            <!-- Lyrics injected by JS -->
+          </div>
+        </div>
+
+        <a href="#" class="mt-10 px-10 py-5 font-bold text-white text-xl bg-marius-orange rounded-full hover:scale-105 transition-all shadow-xl border-b-4 border-orange-700 active:translate-y-1">
+          📥 Télécharger la chanson
+        </a>
+      </div>
+    </section>
+
+    <!-- Activities Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 relative z-10">
+      
+      <!-- Coloring Card -->
+      <div class="perspective-container">
+        <div class="tilt-card preserve-3d p-10 bg-white rounded-[2.5rem] shadow-xl border-t-8 border-marius-mint flex flex-col items-center text-center h-full">
+          <h3 class="font-outfit text-3xl font-bold mb-6 text-marius-dark">Tes Coloriages</h3>
+          <div class="grid grid-cols-3 gap-4 mb-8 w-full translate-z-50 relative z-20">
+            <a href="images/marius-coloriage-1.png" download class="group block transform hover:scale-110 transition-all">
+              <img src="images/marius-coloriage-1.png" class="w-full rounded-xl border-2 border-gray-100 shadow-sm">
+              <div class="mt-2 text-xs font-bold text-marius-teal">Vroum !</div>
+            </a>
+            <a href="images/marius-coloriage-2.png" download class="group block transform hover:scale-110 transition-all">
+              <img src="images/marius-coloriage-2.png" class="w-full rounded-xl border-2 border-gray-100 shadow-sm">
+              <div class="mt-2 text-xs font-bold text-marius-teal">Magique</div>
+            </a>
+            <a href="images/marius-coloriage-3.png" download class="group block transform hover:scale-110 transition-all">
+              <img src="images/marius-coloriage-3.png" class="w-full rounded-xl border-2 border-gray-100 shadow-sm">
+              <div class="mt-2 text-xs font-bold text-marius-teal">Dodo</div>
+            </a>
+          </div>
+          <p class="text-gray-500 font-bold mb-6 italic">Clique sur un dessin pour l'enregistrer !</p>
+          <div class="mt-auto bg-marius-mint/20 text-marius-dark font-bold px-6 py-2 rounded-full border-2 border-marius-mint">
+            🖍️ À tes feutres !
+          </div>
+        </div>
+      </div>
+
+      <!-- DIY Card -->
+      <div class="perspective-container">
+        <div class="tilt-card preserve-3d p-10 bg-white rounded-[2.5rem] shadow-xl border-t-8 border-marius-orange flex flex-col items-center text-center h-full">
+          <h3 class="font-outfit text-3xl font-bold mb-6 text-marius-dark">Ton Masque Marius</h3>
+          <p class="text-gray-600 mb-8 font-semibold text-lg">
+            Deviens un super rhinocéros avec ce masque facile à fabriquer. Rugissement de doudou garanti !
+          </p>
+          <div class="w-32 h-32 mb-8 bg-marius-bg rounded-full flex items-center justify-center text-6xl">
+            ✂️
+          </div>
+          <a href="marius-diy-mask.html" target="_blank"
+            class="mt-auto inline-flex items-center px-8 py-4 bg-marius-orange text-white font-bold text-lg rounded-full shadow-lg hover:scale-110 transition-all border-b-4 border-orange-700 translate-z-50 relative z-20">
+            Voir le Patron
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Did You Know -->
+    <section class="max-w-3xl mx-auto relative pl-4 md:pl-20 mb-32 z-10">
+      <div class="absolute left-0 top-1/2 -translate-y-1/2 text-8xl hidden md:block animate-pulse-soft">💡</div>
+      <div class="bg-white p-10 rounded-[3rem] shadow-2xl border-4 border-marius-teal/20 text-gray-800 relative">
+        <h2 class="font-outfit text-4xl font-bold text-marius-teal mb-6 border-b-2 border-marius-bg pb-4">Le Savais-tu ?</h2>
+        <div class="space-y-6 text-xl font-medium leading-relaxed">
+          <p>
+            ☀️ Les rhinocéros ont une peau très épaisse, mais ils peuvent attraper des coups de soleil ! C'est pour ça qu'ils adorent se rouler dans la boue fraîche. C'est leur crème solaire à eux !
+          </p>
+          <p>
+            🐎 Un rhinocéros peut courir aussi vite qu'un cheval ! C'est un vrai champion de course, même s'il pèse le poids d'une petite voiture.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Story Carousel -->
+    <section class="relative z-10 bg-white rounded-[3rem] p-10 shadow-2xl border-4 border-marius-mint/30">
+      <div class="flex items-center justify-center mb-10">
+        <span class="text-5xl mr-4">📖</span>
+        <h2 class="font-outfit text-5xl font-bold text-marius-dark">L'Histoire de Marius</h2>
+      </div>
+
+      <div class="relative w-full overflow-hidden rounded-3xl bg-marius-bg border-4 border-white aspect-video md:aspect-[21/9] flex items-center justify-center shadow-inner">
+        
+        <!-- Slides -->
+        <div id="slide-1" class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-10 transition-all duration-500 opacity-100 scale-100">
+          <img src="images/marius-histoire-1.png" class="w-1/2 md:w-5/12 aspect-square object-cover rounded-3xl shadow-lg mb-6 md:mb-0 md:mr-10 border-8 border-white">
+          <p class="text-xl font-semibold text-marius-dark flex-1 leading-relaxed text-center md:text-left">
+            Marius le rhinocéros est un doudou très spécial. Il vit dans une jungle de velours où les arbres sont en coton et les rivières en sirop de menthe. Ce matin, Marius a trouvé une petite étoile tombée du ciel. Elle était toute triste car elle avait perdu son éclat.
+          </p>
+        </div>
+
+        <div id="slide-2" class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-10 transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+          <img src="images/marius-histoire-1.png" class="w-1/2 md:w-5/12 aspect-square object-cover rounded-3xl shadow-lg mb-6 md:mb-0 md:mr-10 border-8 border-white">
+          <p class="text-xl font-semibold text-marius-dark flex-1 leading-relaxed text-center md:text-left">
+            "Ne t'inquiète pas, petite amie," dit Marius avec sa voix douce. Il installa l'étoile sur sa corne magique. Ensemble, ils traversèrent la Forêt des Songes. Marius marchait d'un pas sûr, ses pattes rayées orange et blanc faisant de petits bruits de velours sur le sol.
+          </p>
+        </div>
+
+        <div id="slide-3" class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-10 transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+          <img src="images/marius-histoire-1.png" class="w-1/2 md:w-5/12 aspect-square object-cover rounded-3xl shadow-lg mb-6 md:mb-0 md:mr-10 border-8 border-white">
+          <p class="text-xl font-semibold text-marius-dark flex-1 leading-relaxed text-center md:text-left">
+            Arrivés au sommet de la Colline des Rêves, Marius leva sa tête vers le ciel. Il demanda à l'étoile de fermer les yeux et de penser à un souvenir joyeux. "Je pense au rire des enfants !" murmura l'étoile. Soudain, un éclat de lumière jaillit de la corne de Marius !
+          </p>
+        </div>
+
+        <div id="slide-4" class="absolute inset-0 flex flex-col md:flex-row items-center justify-center p-10 transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+          <img src="images/marius-histoire-1.png" class="w-1/2 md:w-5/12 aspect-square object-cover rounded-3xl shadow-lg mb-6 md:mb-0 md:mr-10 border-8 border-white">
+          <p class="text-xl font-semibold text-marius-dark flex-1 leading-relaxed text-center md:text-left">
+            L'étoile s'envola, plus brillante que jamais, laissant derrière elle une traînée de poussière d'or. Pour remercier Marius, elle lui offrit un bandeau magique orné de motifs anciens. Depuis ce jour, Marius est le gardien officiel des rêves de tous les enfants.
+          </p>
+        </div>
+
+        <!-- Controls -->
+        <button onclick="changeSlide(-1)" class="absolute left-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 rounded-full shadow-lg text-3xl text-marius-teal hover:scale-110 transition-all flex items-center justify-center pb-1">◀</button>
+        <button onclick="changeSlide(1)" class="absolute right-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-white/90 rounded-full shadow-lg text-3xl text-marius-teal hover:scale-110 transition-all flex items-center justify-center pb-1">▶</button>
+      </div>
+
+      <div class="flex justify-center mt-8 gap-4" id="pagination">
+        <button onclick="goToSlide(1)" class="w-4 h-4 rounded-full bg-marius-teal transition-all shadow-sm" id="dot-1"></button>
+        <button onclick="goToSlide(2)" class="w-4 h-4 rounded-full bg-gray-200 transition-all shadow-sm" id="dot-2"></button>
+        <button onclick="goToSlide(3)" class="w-4 h-4 rounded-full bg-gray-200 transition-all shadow-sm" id="dot-3"></button>
+        <button onclick="goToSlide(4)" class="w-4 h-4 rounded-full bg-gray-200 transition-all shadow-sm" id="dot-4"></button>
+      </div>
+    </section>
+
+  </article>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("marius-audio");
+      const playBtn = document.getElementById("play-btn");
+      const curveBg = document.getElementById("curve-bg");
+      const curveFill = document.getElementById("curve-fill");
+      const thumbDiv = document.getElementById("progress-thumb-div");
+      const svgContainer = document.getElementById("audio-curve-svg");
+      const timeCurrent = document.getElementById("time-current");
+      const timeTotal = document.getElementById("time-total");
+
+      const pathLength = curveBg.getTotalLength();
+      curveFill.style.strokeDasharray = pathLength;
+      curveFill.style.strokeDashoffset = pathLength;
+
+      const lyricsData = [
+        { time: 0.0, text: "♪ (Intro cuivres joyeux...) ♪" },
+        { time: 4.3, text: "♪ Tchik-tchika, tchik-tchika ! ♪" },
+        
+        // Couplet 1
+        { time: 8.7, text: "Regardez-moi, je suis tout bleu," },
+        { time: 13.0, text: "Avec des étoiles plein les yeux." },
+        { time: 17.4, text: "Mes oreilles orange font 'flip-flap'," },
+        { time: 21.7, text: "Quand je danse en faisant 'clap-clap' !" },
+        { time: 26.1, text: "J’ai des ananas sous les pieds," },
+        { time: 30.4, text: "Pour mieux pouvoir gambader !" },
+
+        // Refrain 1
+        { time: 34.8, text: "C’est Marius, le roi du Ska," },
+        { time: 39.1, text: "Il danse ici, il danse là !" },
+        { time: 43.5, text: "Hop, hop, hop ! On lève les bras," },
+        { time: 47.8, text: "Avec Marius, on fait comme ça ! (Tchika !)" },
+
+        // Couplet 2
+        { time: 52.2, text: "Ma corne magique est un trésor," },
+        { time: 56.5, text: "Elle brille plus fort que l'or." },
+        { time: 60.9, text: "Mon bandeau bohème me rend fier," },
+        { time: 65.2, text: "Je suis le plus doux de la Terre !" },
+        { time: 69.6, text: "Un petit cœur gravé sur mon bras," },
+        { time: 73.9, text: "Pour dire que je ne vous quitte pas." },
+
+        // Refrain 2
+        { time: 78.3, text: "C’est Marius, le roi du Ska," },
+        { time: 82.6, text: "Il danse ici, il danse là !" },
+        { time: 87.0, text: "Hop, hop, hop ! On lève les bras," },
+        { time: 91.3, text: "Avec Marius, on fait comme ça !" },
+
+        // Pont / Outro
+        { time: 95.7, text: "On saute à gauche ! (Hop !)" },
+        { time: 97.8, text: "On saute à droite ! (Hop !)" },
+        { time: 100.0, text: "Marius rigole... Dernier saut... HOP !" },
+        { time: 104.0, text: "♪ (Final Cuivres) ♪" }
+      ];
+
+      const lyricsContent = document.getElementById("lyrics-content");
+      let lyricsElements = [];
+
+      lyricsData.forEach((line) => {
+        const p = document.createElement("p");
+        p.innerText = line.text;
+        p.className = "text-gray-400 font-bold text-lg transition-all duration-300";
+        lyricsContent.appendChild(p);
+        lyricsElements.push(p);
+      });
+
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      audio.addEventListener('loadedmetadata', () => {
+        timeTotal.textContent = formatTime(audio.duration);
+      });
+
+      playBtn.addEventListener("click", () => {
+        if (audio.paused) {
+          audio.play();
+          playBtn.innerText = "⏸️";
+        } else {
+          audio.pause();
+          playBtn.innerText = "▶️";
+        }
+      });
+
+      let activeLyricIndex = -1;
+
+      audio.addEventListener("timeupdate", () => {
+        timeCurrent.textContent = formatTime(audio.currentTime);
+        if (audio.duration) {
+          const percent = audio.currentTime / audio.duration;
+          curveFill.style.strokeDashoffset = pathLength - (percent * pathLength);
+          const point = curveBg.getPointAtLength(percent * pathLength);
+          thumbDiv.style.left = (point.x / 10) + "%";
+          thumbDiv.style.top = (point.y) + "%";
+        }
+
+        let newIndex = -1;
+        lyricsData.forEach((line, i) => {
+          if (audio.currentTime >= line.time) newIndex = i;
+        });
+
+        if (newIndex !== activeLyricIndex && newIndex !== -1) {
+          if (activeLyricIndex !== -1) {
+            lyricsElements[activeLyricIndex].classList.replace('text-marius-teal', 'text-gray-400');
+            lyricsElements[activeLyricIndex].classList.remove('scale-110', 'text-2xl');
+          }
+          lyricsElements[newIndex].classList.replace('text-gray-400', 'text-marius-teal');
+          lyricsElements[newIndex].classList.add('scale-110', 'text-2xl');
+          lyricsElements[newIndex].scrollIntoView({ behavior: "smooth", block: "center" });
+          activeLyricIndex = newIndex;
+        }
+      });
+
+      svgContainer.addEventListener("click", (e) => {
+        if (!audio.duration) return;
+        const rect = svgContainer.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percent * audio.duration;
+      });
+    });
+
+    // Carousel Script
+    let currentSlide = 1;
+    const totalSlides = 4;
+
+    function updateSlider() {
+      for (let i = 1; i <= totalSlides; i++) {
+        const slide = document.getElementById('slide-' + i);
+        const dot = document.getElementById('dot-' + i);
+        if (i === currentSlide) {
+          slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+          slide.classList.add('opacity-100', 'scale-100');
+          dot.classList.replace('bg-gray-200', 'bg-marius-teal');
+        } else {
+          slide.classList.remove('opacity-100', 'scale-100');
+          slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+          dot.classList.replace('bg-marius-teal', 'bg-gray-200');
+        }
+      }
+    }
+
+    function changeSlide(n) {
+      currentSlide += n;
+      if (currentSlide > totalSlides) currentSlide = 1;
+      if (currentSlide < 1) currentSlide = totalSlides;
+      updateSlider();
+    }
+
+    function goToSlide(n) {
+      currentSlide = n;
+      updateSlider();
+    }
+  </script>
+</body>
+</html>
