@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patron Kiki Articulée - À Imprimer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @page { 
+            size: A4 portrait; 
+            margin: 0; 
+        }
+        body {
+            background-color: #f3f4f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .a4-page {
+            width: 210mm;
+            height: 297mm;
+            margin: 10mm auto;
+            background: white;
+            padding: 15mm;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+        }
+        @media print {
+            body { 
+                background-color: white; 
+                -webkit-print-color-adjust: exact; 
+                print-color-adjust: exact; 
+            }
+            .a4-page { 
+                margin: 0; 
+                box-shadow: none; 
+                width: 100%; 
+                height: 100vh;
+                page-break-after: always;
+            }
+            .no-print { 
+                display: none !important; 
+            }
+        }
+        .cut-line {
+            stroke: #000;
+            stroke-width: 3;
+            stroke-dasharray: 8, 8;
+            fill: none;
+        }
+        .hole-mark {
+            fill: none;
+            stroke: #ff0000;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bouton d'impression -->
+    <div class="no-print text-center py-6 sticky top-0 bg-yellow-700 text-white z-50 shadow-md">
+        <h1 class="text-2xl font-bold mb-2">Patron de Kiki Articulée</h1>
+        <p class="mb-4">Cliquez sur "Imprimer" puis <strong>"Enregistrer au format PDF"</strong>.</p>
+        <button onclick="window.print()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105">
+            🖨️ Imprimer ou Sauvegarder en PDF
+        </button>
+        <a href="kiki.html" class="ml-4 text-yellow-300 hover:text-white underline">Retour au site</a>
+    </div>
+
+    <!-- PAGE 1 : Instructions -->
+    <div class="a4-page flex flex-col">
+        <div class="border-4 border-yellow-300 rounded-2xl p-8 flex-grow flex flex-col bg-yellow-50">
+            <header class="text-center mb-8 mt-4">
+                <h1 class="text-5xl font-extrabold text-orange-600 mb-4">Ta Kiki Articulée !</h1>
+                <p class="text-2xl text-gray-700">Fabrique ta propre autruche qui court 🏃‍♀️</p>
+            </header>
+
+            <div class="flex-grow bg-white p-8 rounded-xl border border-yellow-200 mx-4 shadow-sm">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">📋 Matériel et Instructions</h2>
+                
+                <div class="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-100">
+                    <p class="font-bold text-blue-800">Il te faudra :</p>
+                    <ul class="list-disc list-inside text-blue-700 mt-2">
+                        <li>Des ciseaux</li>
+                        <li>Tes crayons de couleur</li>
+                        <li><strong>3 attaches parisiennes</strong> (petits clous dorés qui s'écartent)</li>
+                    </ul>
+                </div>
+
+                <ol class="space-y-6 text-lg text-gray-700">
+                    <li class="flex items-start">
+                        <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 shrink-0 mt-1">1</span>
+                        <p><strong>Colorie</strong> toutes les parties du corps de Kiki sur la page suivante (corps, cou, pattes).</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 shrink-0 mt-1">2</span>
+                        <p><strong>Découpe</strong> chaque morceau en suivant les gros pointillés.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 shrink-0 mt-1">3</span>
+                        <p><strong>Perce un petit trou</strong> (demande à un adulte) sur chaque cercle rouge marqué d'une croix.</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 shrink-0 mt-1">4</span>
+                        <p><strong>Assemble</strong> Kiki ! Place le trou du cou sur le trou "A" du corps et mets une attache. Fais pareil pour la patte 1 (trou "B") et la patte 2 (trou "C").</p>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="bg-orange-500 text-white font-bold rounded-full w-8 h-8 flex items-center justify-center mr-4 shrink-0 mt-1">5</span>
+                        <p><strong>Amuse-toi</strong> à la faire courir et danser en bougeant ses pattes et son cou !</p>
+                    </li>
+                </ol>
+            </div>
+            
+            <div class="text-center mt-6 text-gray-400 font-bold">
+                L'Univers de Kiki - Activité Gratuite
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 2 : Le Patron à découper -->
+    <div class="a4-page flex flex-col items-center justify-start">
+        <h2 class="text-xl font-bold mb-2 text-gray-400 uppercase tracking-widest text-center w-full">Patron à Découper</h2>
+        
+        <div class="w-full flex-grow relative flex items-center justify-center border-2 border-dashed border-gray-200 rounded-xl p-4">
+            
+            <svg viewBox="0 0 600 800" class="w-full h-full">
+                <!-- LE CORPS (Milieu) -->
+                <g transform="translate(100, 300)">
+                    <path d="M 50,150 C 10,150 10,50 100,50 C 200,50 300,100 350,150 C 400,200 350,250 250,250 C 150,250 100,150 50,150 Z" class="cut-line" />
+                    <!-- Plumes dessinées -->
+                    <path d="M 100,100 Q 150,120 200,100" fill="none" stroke="#666" stroke-width="2" />
+                    <path d="M 120,150 Q 180,180 250,150" fill="none" stroke="#666" stroke-width="2" />
+                    <path d="M 80,200 Q 150,220 200,200" fill="none" stroke="#666" stroke-width="2" />
+                    
+                    <!-- Points d'attache -->
+                    <circle cx="300" cy="120" r="10" class="hole-mark" />
+                    <line x1="290" y1="120" x2="310" y2="120" stroke="#f00" stroke-width="2" />
+                    <line x1="300" y1="110" x2="300" y2="130" stroke="#f00" stroke-width="2" />
+                    <text x="335" y="100" font-size="16" fill="#f00" font-weight="bold">A (Cou)</text>
+
+                    <circle cx="150" cy="220" r="10" class="hole-mark" />
+                    <line x1="140" y1="220" x2="160" y2="220" stroke="#f00" stroke-width="2" />
+                    <line x1="150" y1="210" x2="150" y2="230" stroke="#f00" stroke-width="2" />
+                    <text x="120" y="270" font-size="16" fill="#f00" font-weight="bold">B (Patte 1)</text>
+
+                    <circle cx="250" cy="220" r="10" class="hole-mark" />
+                    <line x1="240" y1="220" x2="260" y2="220" stroke="#f00" stroke-width="2" />
+                    <line x1="250" y1="210" x2="250" y2="230" stroke="#f00" stroke-width="2" />
+                    <text x="240" y="270" font-size="16" fill="#f00" font-weight="bold">C (Patte 2)</text>
+                    
+                    <text x="150" y="40" font-size="20" fill="#999" font-weight="bold">CORPS</text>
+                </g>
+
+                <!-- LE COU ET LA TÊTE (Haut Droite) -->
+                <g transform="translate(350, 50)">
+                    <path d="M 100,50 C 50,50 30,100 50,150 L 50,300 C 50,330 90,330 90,300 L 90,150 C 150,150 150,50 100,50 Z" class="cut-line" />
+                    <!-- Bec -->
+                    <path d="M 35,100 L 10,120 L 40,130" class="cut-line" />
+                    <!-- Oeil -->
+                    <circle cx="70" cy="90" r="8" fill="none" stroke="#000" stroke-width="2" />
+                    <circle cx="68" cy="88" r="3" fill="#000" />
+                    <!-- Sourire -->
+                    <path d="M 40,110 Q 60,130 80,120" fill="none" stroke="#000" stroke-width="2" />
+                    
+                    <!-- Point d'attache (Bas du cou) -->
+                    <circle cx="70" cy="280" r="10" class="hole-mark" />
+                    <line x1="60" y1="280" x2="80" y2="280" stroke="#f00" stroke-width="2" />
+                    <line x1="70" y1="270" x2="70" y2="290" stroke="#f00" stroke-width="2" />
+                    <text x="50" y="330" font-size="16" fill="#f00" font-weight="bold">Vers A</text>
+                </g>
+
+                <!-- PATTE 1 (Bas Gauche) -->
+                <g transform="translate(50, 550)">
+                    <path d="M 50,20 L 50,200 L 10,230 L 30,230 L 40,200 L 60,200 L 70,230 L 90,230 L 70,200 L 70,20 C 70,-10 50,-10 50,20 Z" class="cut-line" />
+                    
+                    <circle cx="60" cy="20" r="10" class="hole-mark" />
+                    <line x1="50" y1="20" x2="70" y2="20" stroke="#f00" stroke-width="2" />
+                    <line x1="60" y1="10" x2="60" y2="30" stroke="#f00" stroke-width="2" />
+                    <text x="35" y="0" font-size="16" fill="#f00" font-weight="bold">Vers B</text>
+                </g>
+
+                <!-- PATTE 2 (Bas Droite) -->
+                <g transform="translate(250, 550)">
+                    <path d="M 50,20 L 50,200 L 10,230 L 30,230 L 40,200 L 60,200 L 70,230 L 90,230 L 70,200 L 70,20 C 70,-10 50,-10 50,20 Z" class="cut-line" />
+                    
+                    <circle cx="60" cy="20" r="10" class="hole-mark" />
+                    <line x1="50" y1="20" x2="70" y2="20" stroke="#f00" stroke-width="2" />
+                    <line x1="60" y1="10" x2="60" y2="30" stroke="#f00" stroke-width="2" />
+                    <text x="35" y="0" font-size="16" fill="#f00" font-weight="bold">Vers C</text>
+                </g>
+
+                <!-- Ciseaux -->
+                <text x="20" y="40" font-size="30">✂️</text>
+            </svg>
+
+        </div>
+    </div>
+
+</body>
+</html>

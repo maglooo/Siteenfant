@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Club des Copains - Chansons et Activités</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Configuration Tailwind -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            fredoka: ['"Fredoka One"', 'system-ui', 'cursive'],
+            nunito: ['"Nunito"', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+    }
+    .hover-bounce:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 min-h-screen text-gray-800 p-8">
+
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- En-tête -->
+    <header class="text-center mb-16 mt-8">
+      <h1 class="font-fredoka text-6xl md:text-7xl text-purple-600 mb-4 drop-shadow-md">
+        🌟 Le Club des Copains 🌟
+      </h1>
+      <p class="text-2xl text-purple-800 font-bold bg-white/50 inline-block px-8 py-3 rounded-full backdrop-blur-sm shadow-sm border border-purple-200">
+        Choisis ton personnage pour découvrir ses chansons et activités !
+      </p>
+    </header>
+
+    <!-- Grille des personnages -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      
+      <!-- Carte Hector -->
+      <a href="Hector le dinosaure/hector.html" class="bg-white rounded-[3rem] p-8 shadow-xl border-8 border-blue-200 transition-all duration-300 hover-bounce flex flex-col items-center group relative overflow-hidden">
+        <div class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative z-10 flex flex-col items-center w-full">
+          <div class="w-48 h-48 bg-blue-100 rounded-full mb-6 border-4 border-blue-300 flex items-center justify-center overflow-hidden shadow-inner">
+            <img src="Hector le dinosaure/hector-cover.png" alt="Hector" class="w-full h-full object-cover object-[20%_30%]" onerror="this.style.display='none'">
+            <span class="text-7xl absolute" style="z-index:-1;">🦖</span>
+          </div>
+          <h2 class="font-fredoka text-3xl text-blue-800 mb-2 text-center">Hector</h2>
+          <p class="text-blue-600 font-bold mb-6 text-center">Le T-Rex Pirate 🏴‍☠️</p>
+          <span class="bg-blue-500 text-white font-bold py-3 px-8 rounded-full shadow-md group-hover:bg-blue-600 transition-colors w-full text-center">
+            À l'abordage !
+          </span>
+        </div>
+      </a>
+
+      <!-- Carte José -->
+      <a href="José le robot tondeuse/jose.html" class="bg-white rounded-[3rem] p-8 shadow-xl border-8 border-green-200 transition-all duration-300 hover-bounce flex flex-col items-center group relative overflow-hidden">
+        <div class="absolute inset-0 bg-green-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative z-10 flex flex-col items-center w-full">
+          <div class="w-48 h-48 bg-green-100 rounded-full mb-6 border-4 border-green-300 flex items-center justify-center overflow-hidden shadow-inner">
+            <img src="José le robot tondeuse/images/jose-couleur.png" alt="José" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <span class="text-7xl absolute" style="z-index:-1;">🤖</span>
+          </div>
+          <h2 class="font-fredoka text-3xl text-green-800 mb-2 text-center">José</h2>
+          <p class="text-green-600 font-bold mb-6 text-center">Le Robot Tondeuse 🍃</p>
+          <span class="bg-green-500 text-white font-bold py-3 px-8 rounded-full shadow-md group-hover:bg-green-600 transition-colors w-full text-center">
+            Au jardin !
+          </span>
+        </div>
+      </a>
+
+      <!-- Carte Kiki -->
+      <a href="Kiki l'autruche/kiki.html" class="bg-white rounded-[3rem] p-8 shadow-xl border-8 border-yellow-200 transition-all duration-300 hover-bounce flex flex-col items-center group relative overflow-hidden">
+        <div class="absolute inset-0 bg-yellow-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative z-10 flex flex-col items-center w-full">
+          <div class="w-48 h-48 bg-yellow-100 rounded-full mb-6 border-4 border-yellow-300 flex items-center justify-center overflow-hidden shadow-inner">
+            <img src="Kiki l'autruche/images/kiki-couleur.jpg" alt="Kiki" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <span class="text-7xl absolute" style="z-index:-1;">🏜️</span>
+          </div>
+          <h2 class="font-fredoka text-3xl text-yellow-800 mb-2 text-center">Kiki</h2>
+          <p class="text-yellow-600 font-bold mb-6 text-center">L'Autruche Rigolote 💨</p>
+          <span class="bg-yellow-500 text-white font-bold py-3 px-8 rounded-full shadow-md group-hover:bg-yellow-600 transition-colors w-full text-center">
+            C'est parti !
+          </span>
+        </div>
+      </a>
+
+      <!-- Carte Paco -->
+      <a href="Paco le pélican facteur/paco.html" class="bg-white rounded-[3rem] p-8 shadow-xl border-8 border-sky-200 transition-all duration-300 hover-bounce flex flex-col items-center group relative overflow-hidden">
+        <div class="absolute inset-0 bg-sky-50 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="relative z-10 flex flex-col items-center w-full">
+          <div class="w-48 h-48 bg-sky-100 rounded-full mb-6 border-4 border-sky-300 flex items-center justify-center overflow-hidden shadow-inner">
+            <img src="Paco le pélican facteur/images/paco-couleur.png" alt="Paco" class="w-full h-full object-cover" onerror="this.style.display='none'">
+            <span class="text-7xl absolute" style="z-index:-1;">🐦</span>
+          </div>
+          <h2 class="font-fredoka text-3xl text-sky-800 mb-2 text-center">Paco</h2>
+          <p class="text-sky-600 font-bold mb-6 text-center">Le Pélican Facteur ✉️</p>
+          <span class="bg-sky-500 text-white font-bold py-3 px-8 rounded-full shadow-md group-hover:bg-sky-600 transition-colors w-full text-center">
+            Par ici le courrier !
+          </span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-20 text-center text-purple-400 font-bold">
+      <p>Écosystème de Chansons & Activités pour Enfants - Prototype</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

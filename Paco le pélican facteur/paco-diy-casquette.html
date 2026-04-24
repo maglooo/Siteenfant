@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Patron - La Casquette de Paco</title>
+  <style>
+    @page { size: A4 portrait; margin: 10mm; }
+    body { font-family: 'Helvetica', 'Arial', sans-serif; text-align: center; color: #333; margin: 0; padding: 20px; background-color: #f0f9ff; }
+    h1 { color: #0284c7; font-size: 36px; margin-bottom: 10px; }
+    .instructions { text-align: left; max-width: 800px; margin: 0 auto 30px auto; font-size: 18px; line-height: 1.6; background: #fff; padding: 25px; border-radius: 15px; border: 3px dashed #38bdf8; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+    .page-box { background: white; border: 2px solid #000; padding: 10mm; width: 210mm; height: 297mm; box-sizing: border-box; margin: 0 auto; position: relative; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    .cut-line { stroke: black; stroke-width: 2.5; stroke-dasharray: 10, 6; fill: none; }
+    .fold-line { stroke: #888; stroke-width: 2; stroke-dasharray: 4, 4; fill: none; }
+    .glue-area { fill: #f1f1f1; stroke: #999; stroke-width: 1; stroke-dasharray: 2, 2; }
+    
+    .print-btn { display: inline-block; background: #0ea5e9; color: white; padding: 15px 40px; font-size: 22px; text-decoration: none; border-radius: 50px; font-weight: bold; margin-bottom: 30px; cursor: pointer; border: none; transition: transform 0.2s; }
+    .print-btn:hover { background: #0284c7; transform: scale(1.05); }
+    
+    /* Le texte d'instruction disparait à l'impression */
+    @media print {
+      .no-print { display: none !important; }
+      body { background-color: white; padding: 0; }
+      .page-box { border: none; padding: 0; margin: 0; box-shadow: none; width: 100%; height: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Zone visible uniquement sur l'écran -->
+  <div class="no-print">
+    <h1>La Casquette de Paco ✉️</h1>
+    <div class="instructions">
+      <strong>Instructions de montage (Spécial Tour de Tête 52cm) :</strong><br><br>
+      1. 🖨️ <b>Imprime</b> cette page sur du papier un peu épais (idéalement bleu, format A4, échelle 100%).<br>
+      2. ✂️ <b>Découpe</b> le long de toutes les lignes pointillées noires.<br>
+      3. 📏 <b>Le Tour de tête :</b> Le tour de tête d'un enfant est plus long qu'une feuille A4 ! Prends les deux longues bandes, mets de la colle sur la zone hachurée "Coller la Bande 2 ici" et assembles-les pour faire une très grande bande.<br>
+      4. 🧢 <b>La Visière :</b> Plie les petites languettes de la visière vers le haut (lignes grises). Colle ces languettes à l'intérieur de ta grande bande.<br>
+      5. 🌟 <b>La Fin :</b> Colle le gros badge "PACO" devant, et ajuste la taille autour de ta tête avec un bout de scotch ou de la colle à l'arrière.
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨️ Imprimer mon Patron</button>
+  </div>
+
+  <!-- Zone imprimée (Le Patron A4) -->
+  <div class="page-box">
+    
+    <!-- SVG ajusté aux proportions A4 portrait (210mm x 297mm approx 800x1130 px) -->
+    <svg viewBox="0 0 800 1130" width="100%" height="100%">
+      
+      <!-- Bande 1 (25cm de long) -->
+      <rect x="20" y="50" width="760" height="80" class="cut-line" rx="5" ry="5"></rect>
+      <rect x="680" y="50" width="80" height="80" class="glue-area" rx="5" ry="5"></rect>
+      <text x="720" y="95" font-size="14" text-anchor="middle" fill="#666">Coller la</text>
+      <text x="720" y="115" font-size="14" text-anchor="middle" fill="#666">Bande 2 ici</text>
+      <text x="350" y="95" font-size="24" text-anchor="middle" font-weight="bold" fill="#ddd">BANDE 1 (Tour de tête)</text>
+
+      <!-- Bande 2 (25cm de long) -->
+      <rect x="20" y="180" width="760" height="80" class="cut-line" rx="5" ry="5"></rect>
+      <rect x="680" y="180" width="80" height="80" class="glue-area" rx="5" ry="5"></rect>
+      <text x="720" y="225" font-size="14" text-anchor="middle" fill="#666">Zone de colle</text>
+      <text x="720" y="245" font-size="14" text-anchor="middle" fill="#666">ajustable</text>
+      <text x="350" y="225" font-size="24" text-anchor="middle" font-weight="bold" fill="#ddd">BANDE 2 (Tour de tête)</text>
+      
+      <!-- Visière (plus large et proportionnée) -->
+      <path d="M 150,450 C 150,450 400,380 650,450 C 750,650 650,750 400,750 C 150,750 50,650 150,450 Z" class="cut-line"></path>
+      <!-- Ligne de pliage de la visière -->
+      <path d="M 150,450 C 150,450 400,480 650,450" class="fold-line"></path>
+      
+      <!-- Languettes de colle pour la visière -->
+      <path d="M 200,455 L 210,425 L 250,425 L 260,460" class="cut-line" fill="#f9f9f9"></path>
+      <text x="230" y="450" font-size="10" text-anchor="middle" fill="#999">Plier/Coller</text>
+      
+      <path d="M 330,465 L 340,435 L 380,435 L 390,470" class="cut-line" fill="#f9f9f9"></path>
+      <text x="360" y="460" font-size="10" text-anchor="middle" fill="#999">Plier/Coller</text>
+
+      <path d="M 460,465 L 470,435 L 510,435 L 520,460" class="cut-line" fill="#f9f9f9"></path>
+      <text x="490" y="455" font-size="10" text-anchor="middle" fill="#999">Plier/Coller</text>
+      
+      <path d="M 580,450 L 590,420 L 630,420 L 640,450" class="cut-line" fill="#f9f9f9"></path>
+      <text x="610" y="440" font-size="10" text-anchor="middle" fill="#999">Plier/Coller</text>
+
+      <text x="400" y="600" font-size="30" text-anchor="middle" font-weight="bold" fill="#ddd">VISIÈRE</text>
+
+      <!-- Badge de facteur géant -->
+      <circle cx="400" cy="950" r="100" class="cut-line"></circle>
+      <circle cx="400" cy="950" r="85" fill="none" stroke="#ccc" stroke-width="4" stroke-dasharray="8 4"></circle>
+      <text x="400" y="940" font-size="40" text-anchor="middle" font-weight="bold" font-family="Arial">PACO</text>
+      <text x="400" y="990" font-size="50" text-anchor="middle">✉️</text>
+
+    </svg>
+
+  </div>
+
+</body>
+</html>
